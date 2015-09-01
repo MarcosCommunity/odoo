@@ -1,6 +1,8 @@
+/.openerp_serverrc
+/.idea
 # sphinx build directories
 _build/
-
+.idea
 # dotfiles
 .*
 !.gitignore
