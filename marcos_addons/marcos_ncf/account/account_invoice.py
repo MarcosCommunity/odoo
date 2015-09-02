@@ -408,21 +408,22 @@ class account_invoice(models.Model):
             return super(account_invoice, self).invoice_pay_customer()
 
 
-class account_invoice_line(models.Model):
-    _inherit = "account.invoice.line"
-
-    @api.multi
-    def product_id_change(self, product, uom_id, qty=0, name='', type='out_invoice',
-                          partner_id=False, fposition_id=False, price_unit=False, currency_id=False,
-                          company_id=None):
-        res = super(account_invoice_line, self).product_id_change(product, uom_id, qty=qty, name=name,
-                                                                  type='out_invoice',
-                                                                  partner_id=partner_id, fposition_id=fposition_id,
-                                                                  price_unit=price_unit, currency_id=currency_id,
-                                                                  company_id=company_id)
-
-        if product:
-            name = self.pool.get("product.product").name_get(self.env.cr, self.env.uid, [product],
-                                                             context=self.env.context)[0][1]
-            res["value"]["name"] = name
-        return res
+# class account_invoice_line(models.Model):
+#     _inherit = "account.invoice.line"
+#     #
+#     @api.multi
+#     def product_id_change(self, product, uom_id, qty=0, name='', type='out_invoice',
+#                           partner_id=False, fposition_id=False, price_unit=False, currency_id=False,
+#                           company_id=None):
+#         res = super(account_invoice_line, self).product_id_change(product, uom_id, qty=qty, name=name,
+#                                                                   type='out_invoice',
+#                                                                   partner_id=partner_id, fposition_id=fposition_id,
+#                                                                   price_unit=price_unit, currency_id=currency_id,
+#                                                                   company_id=company_id)
+#
+#         if product:
+#             name = self.pool.get("product.product").name_get(self.env.cr, self.env.uid, [product],
+#                                                              context=self.env.context)[0][1]
+#             res["value"]["name"] = name
+#         import pdb;pdb.set_trace()
+#         return res
