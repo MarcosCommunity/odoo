@@ -204,7 +204,9 @@ class account_journal(osv.osv):
         "pay_to": fields.many2one("res.partner", "Pagar a"),
         "ncf_required": fields.boolean("Requiere NCF del proveedor", default=False),
         "active": fields.boolean("Activo", default=True),
-        "nc_payment": fields.boolean("Control de notas de credito", default=False)
+        "nc_payment": fields.boolean("Control de notas de credito", default=False),
+        "cash_bank_type": fields.selection([("payment", "Pago a proveedores"), ("collection", "Pago de clientes"), ("bank", "Cuenta de banco")], string="Tipo de diario banco",
+                                 help="Define en que lugar usara este diario", default="bank")
 
     }
 
