@@ -61,11 +61,6 @@
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
 
-                <field name="type" position="after">
-                    <field name="cash_bank_type" attrs="{'invisible': [('type','not in', ['cash','bank'])],
-                    'required': [('type','in', ['cash','bank'])]}"/>
-                </field>
-
                 <field name="group_invoice_lines" position="after">
                     <field name="nc_payment" invisible="1"/>
                     <field name="ncf_required" attrs="{'invisible': [('type','not in',['purchase','purchase_refund'])]}"/>
