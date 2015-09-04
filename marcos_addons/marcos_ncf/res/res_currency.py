@@ -25,6 +25,7 @@ import time
 import requests
 from openerp.osv import fields, osv
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp import exceptions
 
 CURRENCY_DISPLAY_PATTERN = re.compile(r'(\w+)\s*(?:\((.*)\))?')
 
@@ -40,7 +41,10 @@ class res_currency(osv.osv):
             return False
 
     def get_rate_usd(self, cr, uid, ids, context=None):
-        rate_of_the_day = self._get_central_bank_rate()  # class res_currency_rate(osv.osv):
+        rate_of_the_day = self._get_central_bank_rate()
+        if not rate_of_the_day["dollar"].get("selling_rate", False):
+            raise exceptions.Warning("No se pudo obtener la taza del banco central debe actualizarla de forma manual");
+
         if rate_of_the_day:
             rate_Factor = 1.0/float(rate_of_the_day["dollar"]["selling_rate"])
             vals = {"name": time.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
