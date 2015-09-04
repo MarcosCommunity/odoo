@@ -7788,7 +7788,7 @@ msgstr "Nota de crédito de proveedor"
 #: code:addons/account/account.py:3189
 #, python-format
 msgid "Purchase Refund Journal"
-msgstr "Diario de abono de compras"
+msgstr "Diario de nota de crédito proveedor"
 
 #. module: account
 #: view:wizard.multi.charts.accounts:account.view_wizard_multi_chart

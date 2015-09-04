@@ -352,7 +352,9 @@ class account_invoice(models.Model):
     @api.multi
     def invoice_validate(self):
         self._invoice_ncf_validate()
-        if self.type in ["in_invoice", "in_refund"] and self.reference_type == "none":
+        if self.parent_id:
+            self.reference_type = self.parent_id.reference_type
+        elif self.type in ["in_invoice", "in_refund"] and self.reference_type == "none":
             raise except_orm("Advertencia!",
                              u'No puede validar una factura de compra con el tipo pendiente de digitar!')
         return super(account_invoice, self).invoice_validate()
