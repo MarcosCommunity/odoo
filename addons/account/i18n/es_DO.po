@@ -8131,7 +8131,7 @@ msgstr "Firma del código base de la devolución"
 #: view:account.invoice:account.invoice_form
 #: model:ir.actions.act_window,name:account.action_account_invoice_refund
 msgid "Refund Invoice"
-msgstr "Reintegrar factura"
+msgstr "Crear nota de crédito"
 
 #. module: account
 #: field:account.invoice.refund,journal_id:0
