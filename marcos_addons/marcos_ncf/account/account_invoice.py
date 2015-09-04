@@ -48,6 +48,7 @@ class account_invoice(models.Model):
         return {}
 
     def _invoice_ncf_validate(self):
+
         if self.type in ['in_invoice', "in_refund"] and not self.reference_type in ['none', 'ext'] \
                 and not self.journal_id.ncf_special in ['gasto', 'informal'] and self.ncf_required == True:
 
@@ -333,31 +334,32 @@ class account_invoice(models.Model):
 
         return invoice
 
+
     @api.multi
-    def write(self, vals):
-        if self.internal_number and not self.number:
+    def action_move_create(self):
+        if not self.number and self.internal_number:
 
-            if vals.get("internal_number", False):
-                partner_id = vals.get("partner_id", False) or self.partner_id.id
+            number = self.internal_number
+            partner_id = self.partner_id.id
 
-                self.env.cr.execute(
-                    "select id from account_invoice where number = %(number)s and partner_id = %(partner_id)s",
-                    {"number": vals["internal_number"], "partner_id": partner_id})
-                exist = self.env.cr.fetchone()
-                if exist:
-                    raise except_orm("Advertencia!", u'Esta factura ya fue registrada para esta empresa')
+            self.env.cr.execute("select id from account_invoice where number = %(number)s and partner_id = %(partner_id)s",{"number": number, "partner_id": partner_id})
+            exist = self.env.cr.fetchone()
+            if exist:
+                raise except_orm("Advertencia!", u'Este nümero de comprobante fiscal ya fue registrado para esta empresa')
+        return super(account_invoice, self).action_move_create()
 
-        return super(account_invoice, self).write(vals)
 
     @api.multi
     def invoice_validate(self):
+
         self._invoice_ncf_validate()
         if self.parent_id:
             self.reference_type = self.parent_id.reference_type
         elif self.type in ["in_invoice", "in_refund"] and self.reference_type == "none":
             raise except_orm("Advertencia!",
                              u'No puede validar una factura de compra con el tipo pendiente de digitar!')
-        return super(account_invoice, self).invoice_validate()
+        res = super(account_invoice, self).invoice_validate()
+        return res
 
     @api.model
     def check_open_credit(self, partner_id):
