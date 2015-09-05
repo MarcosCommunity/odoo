@@ -67,6 +67,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem action="606_extract" id="menu_marcos_dgii_606" parent="marcos_ncf.marcos_account_ipf_menu"/>
+        <menuitem action="606_extract" id="menu_marcos_dgii_606" parent="marcos_ncf.marcos_account_ipf_menu"
+                sequence="1"/>
     </data>
 </openerp>

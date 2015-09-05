@@ -53,6 +53,7 @@
         'account/account_invoice_view.xml',
         'res/res_users_view.xml',
         'dgii_compras/view.xml',
+        'dgii_ventas/view.xml',
         'res/res_currency_view.xml',
         'account_voucher/account_voucher_view.xml',
         'wizard/invoice_credit_apply_view.xml'

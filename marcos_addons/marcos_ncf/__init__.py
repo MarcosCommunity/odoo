@@ -24,6 +24,7 @@ import account
 import controllers
 import models
 import dgii_compras
+import dgii_ventas
 import res
 import account_voucher
 import optimization
