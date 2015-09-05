@@ -6,10 +6,18 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock_account.view_picking_inherit_form2"/>
             <field name="arch" type="xml">
+                <field name="picking_type_id" position="replace"/>
+
                 <field name="invoice_state" position="after">
                     <field name="afecta" string="Afecta" groups="account.group_account_invoice"
                            context="{'form_view_ref': invoice_view_xmlid}"/>
                 </field>
+                <field name="partner_id" position="after">
+                    <field name="picking_type_id"/>
+                    <field name="usage"/>
+                </field>
+
+
             </field>
         </record>
 

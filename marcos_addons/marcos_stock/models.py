@@ -111,6 +111,7 @@ class stock_picking(models.Model):
     _inherit = "stock.picking"
 
     afecta = fields.Many2one("account.invoice")
+    usage = fields.Selection(string="Origen", related="picking_type_id.default_location_src_id.usage", readonly=True)
 
     @api.model
     def do_transfer(self):
