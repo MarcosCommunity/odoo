@@ -1389,7 +1389,7 @@ msgid ""
 "* My Quotations\n"
 "* Monthly Turnover (Graph)\n"
 "    "
-msgstr "\nGestiona presupuestos y pedidos de venta\n==================================\n\nEsta aplicación permite gestionar los objetivos de venta de una manera eficiente y eficaz siguiendo todos los pedidos de venta y su historial.\n\nManeja el flujo completo de ventas:\n\n* **Presupuesto** -> **Pedido de venta** -> **Factura**\n\nPreferencias (sólo con la gestión de almacenes instalada)\n-----------------------------------------------------------------------------------------\n\nSi también tiene instalada la gestión de almacenes, puede gestionar las siguientes preferencias:\n\n* Envío: Elección de envío total o parcial\n* Facturación: Escoja cómo serán pagadas las facturas\n* Incoterms: Términos de comercio internacional\n\nPuede elegir métodos de facturación flexibles:\n\n* 'Bajo demanda': Las facturas se crean manualmente desde los pedidos de venta cuando sean necesarias.\n* 'Con la orden de entrega': Las facturas se generan desde el albarán (entrega).\n* 'Antes del envío': Se crea una factura borrador y debe ser pagada antes del envío.\n\nEl tablero para el responsable de compras incluye\n----------------------------------------------------------------------------\n* Mis presupuestos\n* Volumen de negocios mensual (Gráfico)\n    "
+msgstr "\nGestiona presupuestos y pedidos de venta\n==================================\n\nEsta aplicación permite gestionar los objetivos de venta de una manera eficiente y eficaz siguiendo todos los pedidos de venta y su historial.\n\nManeja el flujo completo de ventas:\n\n* **Presupuesto** -> **Pedido de venta** -> **Factura**\n\nPreferencias (sólo con la gestión de almacenes instalada)\n-----------------------------------------------------------------------------------------\n\nSi también tiene instalada la gestión de almacenes, puede gestionar las siguientes preferencias:\n\n* Envío: Elección de envío total o parcial\n* Facturación: Escoja cómo serán pagadas las facturas\n* Incoterms: Términos de comercio internacional\n\nPuede elegir métodos de facturación flexibles:\n\n* 'Bajo demanda': Las facturas se crean manualmente desde los pedidos de venta cuando sean necesarias.\n* 'Con la orden de entrega': Las facturas se generan desde el conduce (entrega).\n* 'Antes del envío': Se crea una factura borrador y debe ser pagada antes del envío.\n\nEl tablero para el responsable de compras incluye\n----------------------------------------------------------------------------\n* Mis presupuestos\n* Volumen de negocios mensual (Gráfico)\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_sale_stock
@@ -1411,7 +1411,7 @@ msgid ""
 "* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
 "* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
 "* *Before Delivery*: A Draft invoice is created and must be paid before delivery\n"
-msgstr "\nGestione presupuestos y pedidos de venta\n==================================\n\nEste módulo enlaza las aplicaciones de ventas y gestión de almacenes.\n\nPreferencias\n----------------------\n* Envío: Elección de envío total o parcial\n* Facturación: escoja cómo serán pagadas las facturas\n* Incoterms: Formas de pago internacionales\n\nPuede elegir métodos de facturación flexibles:\n\n* 'Bajo demanda': Las facturas se crean manualmente desde los pedidos de venta cuando sean necesarias.\n* 'Con la orden de entrega': Las facturas se generan desde el albarán (entrega).\n* 'Antes del envío': Se crea una factura borrador y debe ser pagada antes del envío.\n"
+msgstr "\nGestione presupuestos y pedidos de venta\n==================================\n\nEste módulo enlaza las aplicaciones de ventas y gestión de almacenes.\n\nPreferencias\n----------------------\n* Envío: Elección de envío total o parcial\n* Facturación: escoja cómo serán pagadas las facturas\n* Incoterms: Formas de pago internacionales\n\nPuede elegir métodos de facturación flexibles:\n\n* 'Bajo demanda': Las facturas se crean manualmente desde los pedidos de venta cuando sean necesarias.\n* 'Con la orden de entrega': Las facturas se generan desde el conduce (entrega).\n* 'Antes del envío': Se crea una factura borrador y debe ser pagada antes del envío.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_mrp
@@ -9086,7 +9086,7 @@ msgstr "Factura"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_invoice_directly
 msgid "Invoice Picking Directly"
-msgstr "Facturar albarán directamente"
+msgstr "Facturar conduce directamente"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet_invoice

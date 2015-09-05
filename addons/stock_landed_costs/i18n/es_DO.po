@@ -307,7 +307,7 @@ msgstr "Nombre"
 #. module: stock_landed_costs
 #: field:stock.landed.cost,picking_ids:0
 msgid "Pickings"
-msgstr "Albaranes"
+msgstr "Conduces"
 
 #. module: stock_landed_costs
 #: code:addons/stock_landed_costs/stock_landed_costs.py:112
@@ -396,7 +396,7 @@ msgid ""
 "landed costs. Landed costs are only possible for products configured in real"
 " time valuation with real price costing method. Please make sure it is the "
 "case, or you selected the correct picking"
-msgstr "El albarán seleccionado no contiene ningún movimiento que impacte en los coste en destino. Los costes en destino sólo son posibles para productos configurados con valorización en tiempo real con el método de precio de coste real. Asegúrese de que es el caso, o de que ha seleccionado el albarán adecuado."
+msgstr "El conduce seleccionado no contiene ningún movimiento que impacte en los coste en destino. Los costes en destino sólo son posibles para productos configurados con valorización en tiempo real con el método de precio de coste real. Asegúrese de que es el caso, o de que ha seleccionado el conduce adecuado."
 
 #. module: stock_landed_costs
 #: field:stock.landed.cost,amount_total:0
