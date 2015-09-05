@@ -1248,7 +1248,7 @@ msgstr "Método entrega"
 #: model:stock.picking.type,name:stock.picking_type_out
 #, python-format
 msgid "Delivery Orders"
-msgstr "Albaranes de salida"
+msgstr "Conduces de salida"
 
 #. module: stock
 #: field:stock.warehouse,delivery_route_id:0
@@ -1827,7 +1827,7 @@ msgstr "Fecha de entrada"
 #. module: stock
 #: field:stock.warehouse,reception_steps:0
 msgid "Incoming Shipments"
-msgstr "Albaranes de entrada"
+msgstr "Conduces de entrada"
 
 #. module: stock
 #: help:stock.incoterms,code:0
@@ -1901,7 +1901,7 @@ msgstr "Ubicaciones Internas"
 #. module: stock
 #: field:stock.picking,move_lines:0
 msgid "Internal Moves"
-msgstr "Albaranes internos"
+msgstr "Conduce internos"
 
 #. module: stock
 #: field:stock.production.lot,ref:0
@@ -3122,18 +3122,18 @@ msgstr "Tipo de conduce"
 #: view:stock.move:stock.view_move_search
 #: field:stock.transfer_details,picking_id:0
 msgid "Picking"
-msgstr "Albarán"
+msgstr "Conduce"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_picking
 #: view:stock.picking:stock.view_picking_internal_search
 msgid "Picking List"
-msgstr "Albarán"
+msgstr "Conduce"
 
 #. module: stock
 #: view:stock.picking:stock.view_picking_internal_search
 msgid "Picking Lists"
-msgstr "Albaranes"
+msgstr "Conduces"
 
 #. module: stock
 #: field:procurement.rule,picking_type_id:0 field:stock.move,picking_type_id:0
@@ -3175,7 +3175,7 @@ msgstr "Tipos de conduce"
 #. module: stock
 #: view:stock.picking:stock.vpicktree
 msgid "Picking list"
-msgstr "Albarán"
+msgstr "Conduce"
 
 #. module: stock
 #: model:ir.model,name:stock.model_stock_transfer_details
@@ -3190,22 +3190,22 @@ msgstr "Elementos del asistente de conduce"
 #. module: stock
 #: view:procurement.group:stock.procurement_group_form_view_herited
 msgid "Pickings"
-msgstr "Albaranes"
+msgstr "Conduces"
 
 #. module: stock
 #: view:stock.picking:stock.view_picking_internal_search
 msgid "Pickings already processed"
-msgstr "Albaranes ya procesados"
+msgstr "Conduces ya procesados"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.do_view_pickings
 msgid "Pickings for Groups"
-msgstr "Albaranes para grupos"
+msgstr "Conduces para grupos"
 
 #. module: stock
 #: view:stock.picking:stock.view_picking_internal_search
 msgid "Pickings that are late on scheduled time"
-msgstr "Albaranes retrasados según planificación"
+msgstr "Conduces retrasados según planificación"
 
 #. module: stock
 #: field:make.procurement,date_planned:0
@@ -3983,7 +3983,7 @@ msgstr "Líneas de devolución"
 #: code:addons/stock/wizard/stock_return_picking.py:179
 #, python-format
 msgid "Returned Picking"
-msgstr "Albarán devuelto"
+msgstr "Conduce devuelto"
 
 #. module: stock
 #: view:stock.picking:stock.view_picking_form
@@ -4432,7 +4432,7 @@ msgstr "Operaciones de existencias"
 #. module: stock
 #: field:stock.pack.operation,picking_id:0
 msgid "Stock Picking"
-msgstr "Albarán"
+msgstr "Conduce"
 
 #. module: stock
 #: view:product.template:stock.view_template_property_form

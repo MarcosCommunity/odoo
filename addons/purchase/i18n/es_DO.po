@@ -453,7 +453,7 @@ msgstr "Regla de compra"
 #. module: purchase
 #: selection:purchase.order,invoice_method:0
 msgid "Based on Purchase Order lines"
-msgstr "Basada en las líneas de pedidos de compra"
+msgstr "El contable registrara la factura de forma manual desde el conduce"
 
 #. module: purchase
 #: help:purchase.order,invoice_method:0
@@ -461,23 +461,23 @@ msgid ""
 "Based on Purchase Order lines: place individual lines in 'Invoice Control / On Purchase Order lines' from where you can selectively create an invoice.\n"
 "Based on generated invoice: create a draft invoice you can validate later.\n"
 "Based on incoming shipments: let you create an invoice when receipts are validated."
-msgstr "- Basada en las líneas de pedido de compra: Coloca líneas individuales en 'Control de facturas / A partir de las líneas de los pedidos de compra', desde donde se podrá crear selectivamente una factura.\n- Basada en las facturas borrador generadas: crea una factura borrador que puede validar más tarde.\n- Basada en las recepciones: le deja crear una factura cuando se valida la recepción."
+msgstr "- Basada en las líneas de pedido de compra: Coloca líneas individuales en 'Control de facturas / A partir de las líneas de los pedidos de compra', desde donde se podrá crear selectivamente una factura.\n- Basada en la factura del proveedor con NCF: crea una factura borrador que puede validar más tarde.\n- Basada en las recepciones: le deja crear una factura cuando se valida la recepción."
 
 #. module: purchase
 #: selection:purchase.order,invoice_method:0
 msgid "Based on generated draft invoice"
-msgstr "Basada en las facturas borrador generadas"
+msgstr "Basada en la factura del proveedor con NCF"
 
 #. module: purchase
 #: selection:purchase.config.settings,default_invoice_method:0
 #: selection:purchase.order,invoice_method:0
 msgid "Based on incoming shipments"
-msgstr "Basada en recepciones"
+msgstr "La factura será generada desde el conduce"
 
 #. module: purchase
 #: selection:purchase.config.settings,default_invoice_method:0
 msgid "Based on purchase order lines"
-msgstr "Basada en las líneas de pedidos de compra"
+msgstr "El contable registrara la factura de forma manual desde el conduce"
 
 #. module: purchase
 #: view:purchase.order:purchase.purchase_order_form
@@ -766,7 +766,7 @@ msgstr "¿Quiere generar las facturas de proveedor?"
 msgid ""
 "Does the picking contains some moves related to a purchase order invoiceable"
 " on the receipt?"
-msgstr "¿El albarán contiene algunos movimientos relativos a un pedido de compra facturable en la recepción?"
+msgstr "¿El conduce contiene algunos movimientos relativos a un pedido de compra facturable en la recepción?"
 
 #. module: purchase
 #: selection:purchase.order,state:0 selection:purchase.order.line,state:0
@@ -918,7 +918,7 @@ msgstr "Productos entrantes"
 #: view:purchase.order:purchase.purchase_order_2_stock_picking
 #: field:purchase.order,shipment_count:0
 msgid "Incoming Shipments"
-msgstr "Albaranes de entrada"
+msgstr "Conduces de entrada"
 
 #. module: purchase
 #: view:stock.picking:purchase.view_picking_in_search_picking_inherit
@@ -1034,7 +1034,7 @@ msgstr "Es un seguidor"
 #. module: purchase
 #: help:purchase.order,shipped:0
 msgid "It indicates that a picking has been done"
-msgstr "Indica que un albarán ha sido realizado."
+msgstr "Indica que un conduce ha sido realizado."
 
 #. module: purchase
 #: help:purchase.order,invoiced:0
@@ -1076,7 +1076,7 @@ msgstr "Ubicación y almacén"
 #: code:addons/purchase/purchase.py:159
 #, python-format
 msgid "Make sure you have at least an incoming picking type defined"
-msgstr "Asegúrese de que tiene al menos un tipo de albarán de entrada definido"
+msgstr "Asegúrese de que tiene al menos un tipo de conduce de entrada definido"
 
 #. module: purchase
 #: field:purchase.config.settings,module_purchase_requisition:0
@@ -1299,7 +1299,7 @@ msgstr "Plazo de pago"
 #: model:ir.model,name:purchase.model_stock_picking
 #: field:purchase.order,picking_ids:0
 msgid "Picking List"
-msgstr "Albarán"
+msgstr "Conduce"
 
 #. module: purchase
 #: code:addons/purchase/purchase.py:413
@@ -1685,7 +1685,7 @@ msgid ""
 "Reference of the sales order or bid sent by your supplier. It's mainly used "
 "to do the matching when you receive the products as this reference is "
 "usually written on the delivery order sent by your supplier."
-msgstr "Referencia del pedido de ventas o licitación enviada a su proveedor. Se usa principalmente para realizar el casamiento cuando recibe los productos, ya que esta referencia se suele escribir en el albarán enviado por su proveedor."
+msgstr "Referencia del pedido de ventas o licitación enviada a su proveedor. Se usa principalmente para realizar el casamiento cuando recibe los productos, ya que esta referencia se suele escribir en el conduce enviado por su proveedor."
 
 #. module: purchase
 #: view:website:purchase.report_purchasequotation_document
@@ -1959,7 +1959,7 @@ msgstr "Esta tarifa será utilizada en lugar de la por defecto para las compras 
 #. module: purchase
 #: help:purchase.order,picking_type_id:0
 msgid "This will determine picking type of incoming shipment"
-msgstr "Esto determinará el tipo de albarán de la recepción"
+msgstr "Esto determinará el tipo de conduce de la recepción"
 
 #. module: purchase
 #: field:purchase.order,amount_total:0
