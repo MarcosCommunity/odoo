@@ -436,7 +436,7 @@ msgid ""
 "                draft invoices automatically from purchase orders or receipts.\n"
 "              </p>\n"
 "            "
-msgstr "<p class=\"oe_view_nocontent_create\">\nClick para registrar una nueva factura de proveedor\n</p><p>\nPuede controlar una factura de proveedor conforme a los que haya comprado o recibido. Odoo puede generar también facturas en estado borrador automáticamente desde las órdenes de compra o albaranes de recepción.\n            "
+msgstr "<p class=\"oe_view_nocontent_create\">\nClick para registrar una nueva factura de proveedor\n</p><p>\nPuede controlar una factura de proveedor conforme a los que haya comprado o recibido. Odoo puede generar también facturas en estado borrador automáticamente desde las órdenes de compra o conduces de recepción.\n            "
 
 #. module: account
 #: model:ir.actions.act_window,help:account.action_bank_statement_tree
