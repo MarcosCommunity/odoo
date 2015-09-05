@@ -681,7 +681,7 @@ msgstr "Cancelar movimiento"
 #. module: stock
 #: view:stock.picking:stock.view_picking_form
 msgid "Cancel Transfer"
-msgstr "Cancelar transferencia"
+msgstr "Cancelar Conduce"
 
 #. module: stock
 #: selection:stock.inventory,state:0 selection:stock.move,state:0
@@ -3988,7 +3988,7 @@ msgstr "Conduce devuelto"
 #. module: stock
 #: view:stock.picking:stock.view_picking_form
 msgid "Reverse Transfer"
-msgstr "Revertir transferencia"
+msgstr "Devolver productos"
 
 #. module: stock
 #: field:stock.location,parent_right:0

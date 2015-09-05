@@ -6128,7 +6128,7 @@ msgstr ""
 #. module: base
 #: field:res.partner,ref:0
 msgid "Contact Reference"
-msgstr ""
+msgstr "Número RNC/Cédula"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_title_contact

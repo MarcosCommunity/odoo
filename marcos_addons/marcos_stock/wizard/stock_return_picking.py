@@ -19,20 +19,24 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, fields, api
+from openerp.tools.translate import _
 
 
-class stock_return_picking(osv.osv_memory):
+class stock_return_picking(models.TransientModel):
     _inherit = 'stock.return.picking'
 
-    _columns = {
-        'afecta': fields.char("Factura que afecta", size=19, readonly=True)
-    }
+    afecta = fields.Char("Factura que afecta", size=19, readonly=True)
+    invoice_state = fields.Selection([('2binvoiced', 'Si'), ('none', 'No')], string='Crear factura')
+    # refund_state = fields.Selection([('2binvoiced', 'Si'), ('none', 'No')], string=u'Crear nota de crédito')
+    # refund_type = fields.Selection([("client", "Cliente"), ("supplier", "Suplidor"), ("internal", "Internal")], "Type of refund", default="internal")
 
-    def default_get(self, cr, uid, fields, context=None):
-        res = super(stock_return_picking, self).default_get(cr, uid, fields, context=context)
+    @api.model
+    def default_get(self, fields):
 
-        picking_id = self.pool.get("stock.picking").browse(cr, uid, context["active_id"], context=context)
+        res = super(stock_return_picking, self).default_get(fields)
+
+        picking_id = self.env["stock.picking"].browse(self._context["active_id"])
         if picking_id.invoice_id or picking_id.group_id:
             if picking_id.invoice_id.number:
                 res.update({"afecta": picking_id.invoice_id.number, "invoice_state": "2binvoiced"})
@@ -41,16 +45,47 @@ class stock_return_picking(osv.osv_memory):
 
         return res
 
-    def _create_returns(self, cr, uid, ids, context=None):
-        context = context or {}
-        res = super(stock_return_picking, self)._create_returns(cr, uid, ids, context=context)
-        data = self.browse(cr, uid, ids[0], context=context)
+    @api.model
+    def _create_returns(self):
+        res = super(stock_return_picking, self)._create_returns()
+        data = self.browse(self._ids[0])
 
         if data.afecta:
-            afecta_invoice_id = self.pool.get("account.invoice").search(cr, uid, [('number', '=', data.afecta)])
-            new_picking = self.pool.get("stock.picking").write(cr, uid, res[0],
-                                                               {"afecta": afecta_invoice_id[0],
-                                                                "invoice_id": False}, context=context)
+            afecta_invoice_id = self.env["account.invoice"].search([('number', '=', data.afecta)])
+            picking = self.env["stock.picking"].browse(res[0])
+            picking.write({"afecta": afecta_invoice_id.id, "invoice_id": False})
 
         return res
 
+    @api.multi
+    def create_returns(self):
+        """
+         Creates return picking.
+         @param self: The object pointer.
+         @param cr: A database cursor
+         @param uid: ID of the user currently logged in
+         @param ids: List of ids selected
+         @param context: A standard dictionary
+         @return: A dictionary which of fields with values.
+        """
+
+        new_picking_id, pick_type_id = self._create_returns()
+        # Override the context to disable all the potential filters that could have been set previously
+        ctx = {
+            'search_default_picking_type_id': pick_type_id,
+            'search_default_draft': False,
+            'search_default_assigned': False,
+            'search_default_confirmed': False,
+            'search_default_ready': False,
+            'search_default_late': False,
+            'search_default_available': False,
+        }
+        return {
+            'domain': "[('id', 'in', [" + str(new_picking_id) + "])]",
+            'name': _('Returned Picking'),
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'context': ctx,
+        }
