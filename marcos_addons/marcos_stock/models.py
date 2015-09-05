@@ -115,28 +115,6 @@ class stock_picking(models.Model):
     dest_usage = fields.Selection(string="Hasta", related="picking_type_id.default_location_dest_id.usage", readonly=True)
     refund_type = fields.Selection(string="Tipo de factura", related="afecta.type", readonly=True)
 
-
-
-    # @api.multi
-    # def act_stock_return_picking(self):
-    #     mod_obj = self.env['ir.model.data']
-    #     result = mod_obj._get_id('stock', 'act_stock_return_picking')
-    #     res_id = mod_obj.browse([result]).res_id
-    #     return {
-    #         'name': 'Conduce de salida',
-    #         'res_model': 'stock.return.picking',
-    #         'src_model': 'stock.picking',
-    #         'view_mode': 'form',
-    #         'target': 'new',
-    #         'key2': 'client_action_multi',
-    #         'multi': 'True',
-    #         'view_id': False,
-    #         'type': 'ir.actions.act_window',
-    #         'search_view_id': res_id,
-    #         'context': {"usage": self.usage, "code": self.code}
-    #
-    #     }
-
     @api.model
     def do_transfer(self):
         res = super(stock_picking, self).do_transfer()

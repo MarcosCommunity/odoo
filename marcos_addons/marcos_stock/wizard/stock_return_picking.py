@@ -40,8 +40,6 @@ class stock_return_picking(models.TransientModel):
         if picking_id.invoice_id or picking_id.group_id:
             if picking_id.invoice_id.number:
                 res.update({"afecta": picking_id.invoice_id.number, "invoice_state": "2binvoiced"})
-            # else:
-            #     raise osv.except_osv(u'No puede hacer esta devolución!', u"El pedido de compra relacionado a este conduce no esta facturado!")
 
         return res
 

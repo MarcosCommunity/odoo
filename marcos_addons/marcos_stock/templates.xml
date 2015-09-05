@@ -25,10 +25,10 @@
 
 
                 <field name="partner_id" position="after">
-                    <!--<field name="refund_type"/>-->
+                    <field name="refund_type" invisible="1"/>
                     <field name="picking_type_id"/>
-                    <!--<field name="src_usage"/>-->
-                    <!--<field name="dest_usage"/>-->
+                    <field name="src_usage" invisible="1"/>
+                    <field name="dest_usage" invisible="1"/>
                 </field>
 
                 <xpath expr="//button[@string='Reverse Transfer']" position="replace">
