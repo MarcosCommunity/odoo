@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import fields, models, api
+from openerp.tools.translate import _
 
 
 class sale_order_line(models.Model):
@@ -8,7 +9,7 @@ class sale_order_line(models.Model):
     product_can_modify_prices = fields.Boolean(
         related='product_id.can_modify_prices',
         readonly=True,
-        string='Product Can modify prices')
+        string=_('Product Can modify prices'))
     # agregamos este campo porque si hacemos readonly el campo tax_id el impuesto puede ser sobre escritor por la funcion create de sale order line. de esta manera, oculamos tax para que escriba y ponemos esta copia readonly
     # tampoco nos anduvo porque no podiamos hacerlo visible segun el grupo
     # tax_id_copy = fields.Many2many(

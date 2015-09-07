@@ -29,7 +29,7 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					and update cost price of product.\n"
 "				</p>\n"
 "			"
-msgstr "<p class=\"oe_view_nocontent_create\">Pulse para crear una nueva distribución de costes.</p><p>Utilice este menú para controlar el coste por tipo de gasto, tales como transporte, seguros, gastos de flete, etc.</p><p>Puede introducir uno o más albaranes que compartan los mismos gastos y actualizar el precio de coste del producto.</p>"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse para crear una nueva distribución de costos.</p><p>Utilice este menú para controlar el coste por tipo de gasto, tales como transporte, seguros, gastos de flete, etc.</p><p>Puede introducir uno o más albaranes que compartan los mismos gastos y actualizar el precio de coste del producto.</p>"
 
 #. module: purchase_landed_cost
 #: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_expense_type
@@ -46,7 +46,7 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "                    used for calculating the distribution between lines.\n"
 "				</p>\n"
 "			"
-msgstr "<p class=\"oe_view_nocontent_create\">Pulse para crear un nuevo tipo de gasto.</p><p>Utilice este menú para crear tipos de gastos de compra. Los tipos marcados como por defecto serán añadidos a la distribución de costes automáticamente.</p><p>Defina el tipo de cálculo de cada gasto de compras usado para calcular la distribución entre las líneas.</p>"
+msgstr "<p class=\"oe_view_nocontent_create\">Pulse para crear un nuevo tipo de gasto.</p><p>Utilice este menú para crear tipos de gastos de compra. Los tipos marcados como por defecto serán añadidos a la distribución de costos automáticamente.</p><p>Defina el tipo de cálculo de cada gasto de compras usado para calcular la distribución entre las líneas.</p>"
 
 #. module: purchase_landed_cost
 #: field:purchase.cost.distribution.expense,affected_lines:0
@@ -137,27 +137,27 @@ msgstr "Tipo de actualización del coste"
 #: field:purchase.cost.distribution.expense,distribution:0
 #: field:purchase.cost.distribution.line,distribution:0
 msgid "Cost distribution"
-msgstr "Distribución de costes"
+msgstr "Distribución de costos"
 
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution:purchase_landed_cost.purchase_cost_distribution_form
 msgid "Cost distribution expenses"
-msgstr "Gastos de la distribución de costes"
+msgstr "Gastos de la distribución de costos"
 
 #. module: purchase_landed_cost
 #: field:purchase.cost.distribution.line.expense,distribution_line:0
 msgid "Cost distribution line"
-msgstr "Línea de distribución de costes"
+msgstr "Línea de distribución de costos"
 
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution.line:purchase_landed_cost.view_purchase_cost_distribution_line_form
 msgid "Cost distribution line information"
-msgstr "Información de la línea de la distribución de costes"
+msgstr "Información de la línea de la distribución de costos"
 
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution:purchase_landed_cost.purchase_cost_distribution_form
 msgid "Cost distribution notes..."
-msgstr "Notas de la distribución de costes..."
+msgstr "Notas de la distribución de costos..."
 
 #. module: purchase_landed_cost
 #: field:purchase.expense.type,note:0
@@ -167,12 +167,12 @@ msgstr "Documentación del coste"
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution:purchase_landed_cost.purchase_cost_distribution_form
 msgid "Costs distribution picking lines"
-msgstr "Líneas de albaranes de la distribución de costes"
+msgstr "Líneas de albaranes de la distribución de costos"
 
 #. module: purchase_landed_cost
 #: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_cost_control
 msgid "Costs distributions"
-msgstr "Distribuciones de costes"
+msgstr "Distribuciones de costos"
 
 #. module: purchase_landed_cost
 #: field:import.invoice.line.wizard,create_uid:0
@@ -554,29 +554,29 @@ msgstr "Línea de coste de compra"
 #: view:purchase.cost.distribution:purchase_landed_cost.view_purchase_cost_distribution_calendar
 #: view:purchase.cost.distribution:purchase_landed_cost.view_purchase_cost_distribution_graph
 msgid "Purchase cost distribution"
-msgstr "Distribución de costes de compras"
+msgstr "Distribución de costos de compras"
 
 #. module: purchase_landed_cost
 #: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_line
 msgid "Purchase cost distribution Line"
-msgstr "Línea de distribución de costes de compras"
+msgstr "Línea de distribución de costos de compras"
 
 #. module: purchase_landed_cost
 #: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_expense
 msgid "Purchase cost distribution expense"
-msgstr "Gasto de distribución de costes de compras"
+msgstr "Gasto de distribución de costos de compras"
 
 #. module: purchase_landed_cost
 #: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_line_expense
 msgid "Purchase cost distribution line expense"
-msgstr "Gastos de la línea de distribución de costes de compras"
+msgstr "Gastos de la línea de distribución de costos de compras"
 
 #. module: purchase_landed_cost
 #: model:ir.actions.act_window,name:purchase_landed_cost.action_purchase_cost_distribution
 #: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_cost_distribution
 #: view:purchase.cost.distribution:purchase_landed_cost.view_purchase_cost_distribution_tree
 msgid "Purchase cost distributions"
-msgstr "Distribuciones de costes de compras"
+msgstr "Distribuciones de costos de compras"
 
 #. module: purchase_landed_cost
 #: model:ir.model,name:purchase_landed_cost.model_purchase_expense_type
@@ -596,7 +596,7 @@ msgstr "Información de compra"
 #. module: purchase_landed_cost
 #: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution
 msgid "Purchase landed costs distribution"
-msgstr "Distribución de costes de compra"
+msgstr "Distribución de costos de compra"
 
 #. module: purchase_landed_cost
 #: help:purchase.cost.distribution.expense,affected_lines:0
@@ -626,7 +626,7 @@ msgstr "Referencia"
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution:purchase_landed_cost.purchase_cost_distribution_search
 msgid "Search purchase costs distributions"
-msgstr "Buscar distribuciones de costes de compra"
+msgstr "Buscar distribuciones de costos de compra"
 
 #. module: purchase_landed_cost
 #: view:picking.import.wizard:purchase_landed_cost.picking_import_wizard_view
@@ -641,7 +641,7 @@ msgstr "Asistente para seleccionar la línea de factura de proveedor"
 #. module: purchase_landed_cost
 #: help:purchase.expense.type,default_expense:0
 msgid "Specify if the expense will be automatically added in a purchase cost distribution."
-msgstr "Especifique si el gasto se añadirá automáticamente a la distribución de costes de compras."
+msgstr "Especifique si el gasto se añadirá automáticamente a la distribución de costos de compras."
 
 #. module: purchase_landed_cost
 #: field:purchase.cost.distribution,state:0
@@ -693,7 +693,7 @@ msgstr "Gastos totales"
 #. module: purchase_landed_cost
 #: field:purchase.cost.distribution.line.expense,cost_ratio:0
 msgid "Unit cost"
-msgstr "Coste unitario"
+msgstr "Costo unitario"
 
 #. module: purchase_landed_cost
 #: view:purchase.cost.distribution:purchase_landed_cost.purchase_cost_distribution_form
@@ -709,17 +709,17 @@ msgstr "Información de almacén"
 #: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:139
 #, python-format
 msgid "You can't delete a confirmed cost distribution"
-msgstr "No puede eliminar una distribución de costes confirmada"
+msgstr "No puede eliminar una distribución de costos confirmada"
 
 #. module: purchase_landed_cost
 #: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:249
 #, python-format
 msgid "Cost update cannot be undone because there has been a later update. Restore correct price and try again."
-msgstr "La actualización de coste no puede deshacerse porque ha habido una actualización posterior. Restaure el precio correcto y pruebe otra vez."
+msgstr "La actualización de costos no puede deshacerse porque ha habido una actualización posterior. Restaure el precio correcto y pruebe otra vez."
 
 #. module: purchase_landed_cost
 #: view:purchase.order:purchase_landed_cost.purchase_order_2_stock_picking_landed_cost
 #: view:stock.picking:purchase_landed_cost.view_picking_form_landed_cost
 msgid "Landed costs"
-msgstr "Costes en destino"
+msgstr "Costos"
 

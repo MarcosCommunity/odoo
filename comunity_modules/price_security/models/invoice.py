@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import fields, models, api
+from openerp.tools.translate import _
 
 
 class account_invoice_line(models.Model):
@@ -8,7 +9,7 @@ class account_invoice_line(models.Model):
     product_can_modify_prices = fields.Boolean(
         related='product_id.can_modify_prices',
         readonly=True,
-        string='Product Can modify prices')
+        string=_('Product Can modify prices'))
 
     @api.one
     @api.constrains(

@@ -3911,7 +3911,7 @@ msgstr "Modo de reabastecimiento"
 #: view:stock.warehouse.orderpoint:stock.view_warehouse_orderpoint_tree
 #: view:stock.warehouse.orderpoint:stock.warehouse_orderpoint_search
 msgid "Reordering Rules"
-msgstr "Reglas de reabastecimiento"
+msgstr "Reabastecimiento"
 
 #. module: stock
 #: view:stock.warehouse.orderpoint:stock.warehouse_orderpoint_search

@@ -2,10 +2,9 @@
 from openerp import models, api, fields, _
 from openerp.exceptions import Warning
 
-
 class discount_restriction(models.Model):
     _name = 'res.users.discount_restriction'
-    _description = 'Discount Restriction'
+    _description = _('Discount Restriction')
 
     pricelist_id = fields.Many2one(
         'product.pricelist',
@@ -27,7 +26,7 @@ class users(models.Model):
     discount_restriction_ids = fields.One2many(
         'res.users.discount_restriction',
         'user_id',
-        string='Discount Restrictions')
+        string=_('Discount Restrictions'))
 
     @api.multi
     def check_discount(self, discount, pricelist_id):
