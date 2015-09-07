@@ -45,6 +45,6 @@ for any help or question about this module.
     'data': ['crm_claim_view.xml'],
     'images': [],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'active': False,
 }

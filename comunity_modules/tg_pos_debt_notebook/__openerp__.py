@@ -13,5 +13,5 @@
         'static/src/xml/tg_pos.xml',
     ],
     'installable': True,
-    'auto_install': True
+    'auto_install': False
 }

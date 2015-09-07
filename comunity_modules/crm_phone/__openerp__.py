@@ -49,6 +49,6 @@ for any help or question about this module.
         ],
     'images': [],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'active': False,
 }
