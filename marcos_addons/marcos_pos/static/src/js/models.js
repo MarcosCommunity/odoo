@@ -242,6 +242,7 @@ function marcos_pos_models(instance, module) {
         validate_user: function (value) {
             var self = this;
             var fast_login = false;
+
             _.each(self.users, function (user) {
                 if (user.short_pwd === value) {
                     self.user_before_manager = self.user.id;
@@ -252,6 +253,7 @@ function marcos_pos_models(instance, module) {
             });
 
             if (fast_login) {
+                $(".username").css("color", "#269DB4").css("font-size", "30px");
                 return
             } else {
                 return self.pos_widget.change_user();
@@ -267,6 +269,7 @@ function marcos_pos_models(instance, module) {
                         if (self.manager === user) {
                             self.manger_permission = manager;
                             self.manger_validated = true;
+                            return
                         }
                     })
                 });

@@ -62,6 +62,22 @@ function marcos_pos_widgets(instance, module) {
         },
         change_user: function () {
             var self = this;
+
+            if (self.pos.manager) {
+                _.each(self.pos.users, function (user) {
+                    if (user.id === self.pos.user_before_manager) {
+                        self.pos.barcode_reader.scan(user.ean13);
+                        self.pos.user_before_manager = false;
+                        self.pos.manager = false;
+                        self.pos.manger_validated = false;
+                        self.pos.manger_permission = false;
+
+                    }
+                });
+                $(".username").css("color", "white").css("font-size", "19px");
+                return
+            }
+
             self.screen_selector.show_popup('marcos_input_popup_widget', {
             message: "Introduzca su clave.",
             input_type: "pwd",
