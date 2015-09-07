@@ -2436,7 +2436,7 @@ msgstr "Planes contables"
 #: model:account.account.type,name:account.conf_account_type_chk
 #: selection:account.bank.accounts.wizard,account_type:0
 msgid "Check"
-msgstr "Comprobar"
+msgstr "Cheque"
 
 #. module: account
 #: field:account.journal,allow_date:0
