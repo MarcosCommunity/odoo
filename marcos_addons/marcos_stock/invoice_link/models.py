@@ -34,7 +34,6 @@ class stock_move(models.Model):
         move.write({'invoice_line_id': res})
         return res
 
-
     def product_price_update_after_done(self, cr, uid, ids, context=None):
         '''
         This method adapts the price on the product when necessary
@@ -42,9 +41,17 @@ class stock_move(models.Model):
         for move in self.browse(cr, uid, ids, context=context):
             #adapt standard price on outgoing moves if the product cost_method is 'real', so that a return
             #or an inventory loss is made using the last value used for an outgoing valuation.
-            if move.product_id.cost_method == 'real':
+            if move.product_id.cost_method == 'real' and move.location_dest_id.usage != 'internal':
                 #store the average price of the move on the move and product form
                 self._store_average_cost_price(cr, uid, move, context=context)
+            elif move.product_id.cost_method == 'real':
+                group_name = move.picking_id.group_id.name
+                purchase_order_id = self.pool.get("purchase.order").search(cr, uid, [('name','=',group_name)])
+                purchase_order = self.pool.get("purchase.order").browse(cr, uid, purchase_order_id)
+                if purchase_order:
+                    self._store_average_cost_price(cr, uid, move, context=context)
+
+
 
 
 class stock_picking(models.Model):
