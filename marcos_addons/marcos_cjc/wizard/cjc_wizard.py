@@ -105,8 +105,9 @@ class cjc_invoice_wizard(models.TransientModel):
             if ncf_required and not is_ncf(inv.ncf.encode("ascii")):
                 raise models.except_orm(u"NCF Invalido!", u"El NCF del proveedor no es válido!")
 
+
             vals.update({
-                u'account_id': self.partner_id.property_account_payable.id or self.journal_id.special_partner.property_account_payable.id,
+                u'account_id': current_model.journal_id.default_credit_account_id.id,
                 u'check_total': 0,
                 u'child_ids': [[6, False, []]],
                 u'comment': "Factura de caja chica",
@@ -170,7 +171,7 @@ class cjc_invoice_wizard(models.TransientModel):
         wf_service = netsvc.LocalService("workflow")
         wf_service.trg_validate(self.env.uid, 'account.invoice', inv.id, 'invoice_open', self.env.cr)
 
-        lines_vals = {u'account_id': current_model.journal_id.default_credit_account_id.id,
+        lines_vals = {u'account_id': current_model.journal_id.default_debit_account_id.id,
                       u'amount': inv.amount_total * -1,
                       u'analytic_account_id': False,
                       u'date': inv.date_invoice,
@@ -185,7 +186,6 @@ class cjc_invoice_wizard(models.TransientModel):
                       u"journal_id": current_model.journal_id.id
 
                       }
-
         self.pool.get('account.bank.statement.line').create(self.env.cr, self.env.uid, lines_vals, context=self.env.context)
         return {'type': 'ir.actions.act_window_close'}
 

@@ -21,7 +21,7 @@
 from openerp.osv import fields, orm
 from openerp import netsvc
 from openerp.exceptions import ValidationError
-
+from openerp.exceptions import except_orm
 
 class account_cash_statement(orm.Model):
     _inherit = "account.bank.statement"
@@ -38,12 +38,10 @@ class account_cash_statement(orm.Model):
         is_cjc = self.pool.get("account.journal").browse(cr, uid, journal_id).is_cjc
         return {"value": {"is_cjc": is_cjc}}
 
-
     _columns = {
         "is_cjc": fields.boolean("Control de caja chica", readonly=False),
         'all_lines_reconciled': fields.function(_all_lines_reconciled, string='All lines reconciled', type='boolean'),
     }
-
 
     def create_invoice_wizard(self, cr, uid, ids, context=None):
         view_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'marcos_cjc', 'cjc_wizard_view_form')[1]
@@ -61,25 +59,26 @@ class account_cash_statement(orm.Model):
         return wizard
 
     def button_confirm_cash(self, cr, uid, ids, context=None):
-        if context:
+        statement = self.browse(cr, uid, ids)[0]
+        if statement.journal_id.is_cjc and context:
             wf_service = netsvc.LocalService("workflow")
-            invoiced = []
+            # invoiced = []
             uninvoiced = []
             for statement in self.browse(cr, uid, ids):
                 for line in statement.line_ids:
-                    if line.invoice_id:
-                        invoiced.append(line.invoice_id.id)
-                    elif line.amount < 0:
+                    # if line.invoice_id:
+                    #     invoiced.append(line.invoice_id.id)
+                    if not line.invoice_id and line.amount < 0:
                         uninvoiced.append(line)
 
             # for inv_id in invoiced:
             # wf_service.trg_validate(uid, 'account.invoice', inv_id, 'invoice_open', cr)
 
-            statement = self.browse(cr, uid, ids)[0]
             journal = statement.journal_id
             minor_journal = journal.gastos_journal_id
             minor_partner = minor_journal.special_partner
             minor_product = minor_journal.special_product
+
             vals = {}
             vals.update({
                 u'account_id': journal.default_credit_account_id.id,
@@ -114,10 +113,12 @@ class account_cash_statement(orm.Model):
             if uninvoiced:
                 if not minor_product.property_account_expense.id and statement.journal_id.is_cjc:
                     raise ValidationError(u"En el diario de gasto menor seleccionado para esta caja chica "
-                                            u"el producto {} utilizado por defecto no tiene la cuenta de gasto asignada!".format(minor_product.name))
+                                          u"el producto {} utilizado por defecto no tiene la cuenta de gasto asignada!".format(
+                        minor_product.name))
                 line_ids = []
 
                 for line in uninvoiced:
+                    line.account_id = journal.default_credit_account_id
                     line_ids.append(line.id)
                     line_list = [0, False]
                     line_dict = {}
@@ -139,46 +140,85 @@ class account_cash_statement(orm.Model):
                 if statement.journal_id.is_cjc:
                     context = {u'default_type': u'in_invoice', u'journal_type': u'purchase', u"minor": True}
                 inv_id = self.pool.get("account.invoice").create(cr, uid, vals, context=context)
-                self.pool.get("account.bank.statement.line").write(cr, uid, line_ids, {"invoice_id": inv_id})
+                inv = self.pool.get("account.invoice").browse(cr, uid, inv_id)
                 wf_service.trg_validate(uid, 'account.invoice', inv_id, 'invoice_open', cr)
+                self.pool.get("account.bank.statement.line").write(cr, uid, line_ids, {"invoice_id": inv_id, "partner_id": minor_partner.id, "ref": inv.number})
 
-        return super(account_cash_statement, self).button_confirm_bank(cr, uid, ids, context=context)
+        res = super(account_cash_statement, self).button_confirm_bank(cr, uid, ids, context=context)
+        if statement.journal_id.is_cjc and context:
+            for move in statement.move_line_ids:
+                if move.credit > 0:
+                    self.pool.get("account.move.line").write(cr, uid, move.id,
+                                                             {"partner_id": statement.journal_id.pay_to.id})
+
+            for statement in self.browse(cr, uid, ids):
+                for line in statement.line_ids:
+
+                    number = line.invoice_id.number
+                    account_id = line.account_id.id
+                    partner_id = line.partner_id.id
+                    cjc_journal = line.journal_id.id
+                    inv_journal = line.invoice_id.journal_id.id
+                    move_line_ids = []
+                    move_line_ids += self.pool.get("account.move.line").search(cr, uid, [('ref', '=', number),
+                                                                                        ('account_id', '=', account_id),
+                                                                                        ('partner_id', '=', partner_id),
+                                                                                        ('journal_id', '=', cjc_journal),
+                                                                                        ('debit', '>', 0)
+                                                                                        ])
+                    move_line_ids += self.pool.get("account.move.line").search(cr, uid, [('ref', '=', number),
+                                                                                        ('account_id', '=', account_id),
+                                                                                        ('partner_id', '=', partner_id),
+                                                                                        ('journal_id', '=', inv_journal),
+                                                                                        ('credit', '>', 0)
+                                                                                        ])
+
+
+                    try:
+                        self.pool.get("account.move.line.reconcile").trans_rec_reconcile_full(cr, uid, ids, {"active_ids": move_line_ids})
+                    except except_orm as e:
+                        if e.value.startswith("El apunte ya est"):
+                            pass
+                        else:
+                            raise e
+
+        return res
 
 
 class account_bank_statement_line(orm.Model):
     _inherit = "account.bank.statement.line"
 
     _columns = {
-        "invoice_id": fields.many2one("account.invoice", "Factura")
+        "invoice_id": fields.many2one("account.invoice", "Factura", copy=False)
     }
 
-    def unlink(self, cr, uid, ids, context=None):
-        context = context or {}
-        for line in self.browse(cr, uid, ids):
-            if context.get("journal_type", False) == "cash" and line.invoice_id:
-                self.pool.get("account.invoice").unlink(cr, uid, [line.invoice_id.id], context=context)
-
-        return super(account_bank_statement_line, self).unlink(cr, uid, ids, context=context)
+    # def unlink(self, cr, uid, ids, context=None):
+    #     context = context or {}
+    #     for line in self.browse(cr, uid, ids):
+    #         if context.get("journal_type", False) == "cash" and line.invoice_id:
+    #             self.pool.get("account.invoice").unlink(cr, uid, [line.invoice_id.id], context=context)
+    #
+    #     return super(account_bank_statement_line, self).unlink(cr, uid, ids, context=context)
 
     def view_invoice(self, cr, uid, ids, context=None):
-       """
-       Method to open create customer invoice form
-       """
+        """
+        Method to open create customer invoice form
+        """
 
-       record = self.browse(cr, uid, ids, context=context)
+        record = self.browse(cr, uid, ids, context=context)
 
-       view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account', 'invoice_supplier_form')
-       view_id = view_ref[1] if view_ref else False
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account', 'invoice_supplier_form')
+        view_id = view_ref[1] if view_ref else False
 
-       res = {
-           'type': 'ir.actions.act_window',
-           'name': 'Supplier Invoice',
-           'res_model': 'account.invoice',
-           'view_type': 'form',
-           'view_mode': 'form',
-           'view_id': view_id,
-           'target': 'new',
-           "res_id": record.invoice_id.id,
-       }
+        res = {
+            'type': 'ir.actions.act_window',
+            'name': 'Supplier Invoice',
+            'res_model': 'account.invoice',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'new',
+            "res_id": record.invoice_id.id,
+        }
 
-       return res
+        return res
