@@ -31,7 +31,7 @@
     margin-left: -5px
     border: none;
     position:static;
-    background: url(/sync_leftbar/static/src/img/wantclose.png) scroll center 0% no-repeat;
+    background: url(/sync_fullwidth_view/static/src/img/wantclose.png) scroll center 0% no-repeat;
 }
 .openerp_webclient_container .hide-left-menu:hover, .oe_im .oe_im_users .hide-pane:hover{
     background: #CCC;
