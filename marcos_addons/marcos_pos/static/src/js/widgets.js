@@ -62,7 +62,7 @@ function marcos_pos_widgets(instance, module) {
         },
         change_user: function () {
             var self = this;
-
+            console.log(self);
             if (self.pos.manager) {
                 _.each(self.pos.users, function (user) {
                     if (user.id === self.pos.user_before_manager) {
@@ -71,6 +71,8 @@ function marcos_pos_widgets(instance, module) {
                         self.pos.manager = false;
                         self.pos.manger_validated = false;
                         self.pos.manger_permission = false;
+                        self.pos_widget.numpad.state.set('mode', "quantity");
+                        self.pos_widget.numpad.changedMode();
 
                     }
                 });
