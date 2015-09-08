@@ -28,8 +28,8 @@ class stock_return_picking(models.TransientModel):
 
     afecta = fields.Char("Factura que afecta", size=19, readonly=True)
     invoice_state = fields.Selection([('2binvoiced', 'Si'), ('none', 'No')], string='Crear factura')
-    refund_state = fields.Selection([('2binvoiced', 'Si'), ('none', 'No')], string=u'Crear nota de crédito')
-    refund_type = fields.Selection([("client", "Cliente"), ("supplier", "Suplidor"), ("internal", "Internal")], "Type of refund", default="internal")
+    # refund_state = fields.Selection([('2binvoiced', 'Si'), ('none', 'No')], string=u'Crear nota de crédito')
+    # refund_type = fields.Selection([("client", "Cliente"), ("supplier", "Suplidor"), ("internal", "Internal")], "Type of refund", default="internal")
 
     @api.model
     def default_get(self, fields):
