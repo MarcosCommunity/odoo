@@ -3,7 +3,7 @@
 
 
          <!--Inherit Form View to Modify it -->
-        <record id="marcos_stock_view_stock_return_picking_form" model="ir.ui.view">
+        <!--<record id="marcos_stock_view_stock_return_picking_form" model="ir.ui.view">
             <field name="name">marcos_stock_view_stock_return_picking_form</field>
             <field name="model">stock.return.picking</field>
             <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
@@ -17,7 +17,7 @@
                 </field>
 
             </field>
-        </record>
+        </record>-->
 
 
 
