@@ -167,6 +167,7 @@ class cjc_invoice_wizard(models.TransientModel):
         purchase_invoice_id = self._parse_vals(current_model)
 
         inv = self.env["account.invoice"].browse(purchase_invoice_id.id)
+        inv.check_total = inv.amount_total
 
         wf_service = netsvc.LocalService("workflow")
         wf_service.trg_validate(self.env.uid, 'account.invoice', inv.id, 'invoice_open', self.env.cr)

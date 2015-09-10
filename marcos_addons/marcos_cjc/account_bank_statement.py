@@ -141,6 +141,7 @@ class account_cash_statement(orm.Model):
                     context = {u'default_type': u'in_invoice', u'journal_type': u'purchase', u"minor": True}
                 inv_id = self.pool.get("account.invoice").create(cr, uid, vals, context=context)
                 inv = self.pool.get("account.invoice").browse(cr, uid, inv_id)
+                inv.check_total = inv.amount_total
                 wf_service.trg_validate(uid, 'account.invoice', inv_id, 'invoice_open', cr)
                 self.pool.get("account.bank.statement.line").write(cr, uid, line_ids, {"invoice_id": inv_id, "partner_id": minor_partner.id, "ref": inv.number})
 
