@@ -2,164 +2,177 @@
 <openerp>
     <data>
 
-        <template id="marcos_report_half.layout_header">
-            <div class="header">
-                <div class="row">
-                    <div class="col-xs-4 col-xs-offset-8">
-                        <img src='http://codeboxr.com/wp-content/uploads/2012/06/6_logo_predesign.jpg'/>
+
+        <template id="header_reports" inherit_id="report.external_layout_header" name="header-report">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+                    <div class="row" data-pg-collapsed="data-pg-collapsed">
+                        <table class="pg-empty-placeholder table table-condensed" data-pg-collapsed="data-pg-collapsed">
+                            <style type="text/css">
+                                .table {
+                                    margin-bottom: 5px;
+                                }
+                                .no-borders-pading
+                                {
+                                    border: none !important;
+                                    padding: 0 !important;
+                                    border-left: none !important;
+                                    border-right: none !important;
+                                    border-top: none !important;
+                                    border-bottom: none !important;
+                                    font-size: 12px
+                                }
+
+                                .overline
+                                {
+                                    text-decoration: underline;
+                                    font-weight: bold;
+                                }
+
+                            </style>
+                            <tbody>
+                                <tr style="display: table-row;">
+                                    <td class="no-borders-pading" style="display: table-cell;">
+                                        <h4 class="overline" style="display: block;">PINTURAS Y ACCESORIOS DEL HOGAR SRL</h4>
+                                    </td>
+                                    <td class="no-borders-pading text-left" style="display: table-cell;">Paginas.:</td>
+                                    <td class="no-borders-pading text-left" style="display: table-cell;">1 de 1</td>
+                                </tr>
+                                <tr style="display: table-row;">
+                                    <td class="no-borders-pading" style="display: table-cell;">San Vicente de Paul 230 Alma Rosa II Santo Domingo</td>
+                                    <td class="no-borders-pading text-left" style="display: table-cell;">Fecha.:</td>
+                                    <td class="no-borders-pading text-left" style="display: table-cell;">15/05/2015</td>
+                                </tr>
+                                <tr style="display: table-row;">
+                                    <td class="no-borders-pading" style="display: table-cell;"><strong>Tels.: 809-597-2221 Fax.: 809-345-2342 RNC.:101733934</strong></td>
+                                    <td class="no-borders-pading text-left" style="display: table-cell;">Hora.:</td>
+                                    <td class="no-borders-pading" style="display: table-cell;">13:13:13</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+
                 </div>
-            </div>
+            </xpath>
         </template>
 
-        <template id="marcos_report_half.layout_footer">
-            <div class="footer">
-
-                <!-- FIRST ROW -->
-                <div class="row">
-                    <div class="col-xs-8">
-                        <strong>General Information:</strong>
-                        <br/>
-                        Line 1
-                        <br/>
-                        Line 2
-                        <br/>
-                        Line 3
-                        <br/>
-                        Line 4
-                    </div>
-                    <div class="col-xs-4" style="text-align:right">
-                        <strong>Bank Details:</strong>
-                        <br/>
-                        Line 1
-                        <br/>
-                        Line 2
-                        <br/>
-                        Line 3
-                        <br/>
-                        Line 4
-                    </div>
-                </div>
-
-                <!-- SECOND ROW -->
-                <div class="row mt16 mb16" style="text-align:center">
-                    <strong>THANK YOU FOR YOUR BUSINESS</strong>
-                </div>
-                <!-- THIRD ROW -->
-                <div class="row" style="background-color:#568eff;color:#ffffff;">
-                    <div class="col-xs-8">
-                        <strong>Company Tag Line</strong>
-                        <br/>
-                        Line 1
-                        <br/>
-                        Line 2
-                        <br/>
-                        Line 3
-                    </div>
-                    <div class="col-xs-4" style="text-align:right">
-                        Page
-                        <span class="page"/>
-                        of
-                        <span class="topage"/>
-                    </div>
-                </div>
-            </div>
-
-        </template>
-
-        <template id="marcos_report_half.layout">
-            <t t-call="marcos_report_half.layout_header"/>
-            <t t-row="0"/>
-            <t t-call="marcos_report_half.layout_footer"/>
-        </template>
-
-        <template id="marcos_report_half.invoice_template">
-            <t t-call="marcos_report_half.layout">
-                <t t-foreach="docs" t-as="o">
+        <template id="sale_reports" inherit_id="sale.report_saleorder_document" name="sale_report">
+            <xpath expr="//div[@class='page']" position="replace">
                 <div class="page">
-                    <!-- FIRST ROW -->
+                    <div class="row" data-pg-collapsed="data-pg-collapsed">
+                            <table class="pg-empty-placeholder table table-condensed">
+                                <tbody>
+                                    <tr style="display: table-row;">
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">Cliente.:</td>
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">Eneldo Serrata</td>
+                                        <td class="no-borders-pading text-right" style="display: table-cell;">Numero.:</td>
+                                        <td class="text-right no-borders-pading">SO0001</td>
+                                    </tr>
+                                    <tr style="display: table-row;">
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">Direccion.:</td>
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">Av Romulo betancourt 1804</td>
+                                        <td class="no-borders-pading text-right" style="display: table-cell;">Fecha.:</td>
+                                        <td class="text-right no-borders-pading">01/01/01</td>
+                                    </tr>
+                                    <tr style="display: table-row;">
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">Telefonos.:</td>
+                                        <td class="no-borders-pading text-left" style="display: table-cell;">809 224 9879 597 2221</td>
+                                        <td class="no-borders-pading text-right" style="display: table-cell;">Condicion.:</td>
+                                        <td class="text-right no-borders-pading">Credito</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left no-borders-pading">RNC.:</td>
+                                        <td class="no-borders-pading">00111616876</td>
+                                        <td class="text-right no-borders-pading" style="display: table-cell;">Vendedor.:</td>
+                                        <td class="text-right no-borders-pading">Juan Eramos</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="row text-center" data-pg-collapsed="data-pg-collapsed">
+                        <h4 style="display: block;">COTIZACION</h4>
+                    </div>
+
                     <div class="row">
-                        <div class="col-xs-12"
-                             style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;">
-                            <h3>INVOICE</h3>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Articulo</th>
+                                    <th>Ref</th>
+                                    <th>Descripcion del articulo</th>
+                                    <th class="text-right">Cantidad</th>
+                                    <th class="text-right">Precio</th>
+                                    <th class="text-right">Desc %</th>
+                                    <th class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr t-foreach="o.order_line" t-as="l">
+                                    <td class="no-borders-pading">568</td>
+                                    <td class="no-borders-pading">Mark</td>
+                                    <td class="no-borders-pading"><span t-field="l.name"/></td>
+                                    <td class="text-right no-borders-pading" style="display: table-cell;"><span t-field="l.product_uom_qty"/></td>
+                                    <td class="text-right no-borders-pading" style="display: table-cell;"><span t-field="l.price_unit"/></td>
+                                    <td class="no-borders-pading text-right"><span t-field="l.discount"/></td>
+                                    <td class="no-borders-pading text-right" style="display: table-cell;">
+                                        <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <style type="text/css">
+                                    .table {
+                                        margin-bottom: 5px;
+                                    }
+                                    .no-borders-pading
+                                    {
+                                        border: none !important;
+                                        padding: 0 !important;
+                                        border-left: none !important;
+                                        border-right: none !important;
+                                        border-top: none !important;
+                                        border-bottom: none !important;
+                                        font-size: 12px
+                                    }
+
+                                    .overline
+                                    {
+                                        text-decoration: underline;
+                                        font-weight: bold;
+                                    }
+
+                                </style>
+                                <tr class="border-black">
+                                    <td><strong>Sub total</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Itbis</td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
-                    <!-- SECOND ROW -->
-                    <div class="row">
-                        <div class="col-xs-8" style="border-left:1px solid #568eff;">
-                            <strong>BILL TO:</strong>
-                            <br/>
-                            Line 1
-                            <br/>
-                            Line 2
-                            <br/>
-                            Line 3
-                        </div>
-                        <div class="col-xs-2" style="text-align:right;border-left:1px solid #568eff;">
-                            <strong>Invoice No.:</strong>
-                            <br/>
-                            <strong>Invoice Date:</strong>
-                            <br/>
-                            <strong>Due Date:</strong>
-                            <br/>
-                            <strong>PO No.:</strong>
-                        </div>
-                        <div class="col-xs-2" style="border-right:1px solid #568eff;">
-                            <span t-field="o.number"/>
-                            <br/>
-                            <!-- example of how to access field values -->
-                            Line 2
-                            <br/>
-                            Line 3
-                            <br/>
-                            Line 4
-                        </div>
-                    </div>
-
-                    <!-- THIRD ROW -->
-                    <div class="row">
-                        <div class="col-xs-12" style="border:1px solid #568eff;">
-                            <strong>PROJECT:</strong>
-                            <br/>
-                            Line 1
-                        </div>
-                    </div>
-
-                    <!-- FOURTH ROW -->
-                    <div class="row mt32" style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;">
-                        <div class="col-xs-1">NO.</div>
-                        <div class="col-xs-7">DESCRIPTION</div>
-                        <div class="col-xs-1">UOM</div>
-                        <div class="col-xs-1">QTY</div>
-                        <div class="col-xs-1">UNIT RATE</div>
-                        <div class="col-xs-1">AMOUNT</div>
-                    </div>
-
-                    <!-- FIFTH ROW -->
-                    <div class="row">
-                        <div class="col-xs-1" style="border-left:1px solid #568eff;">1.</div>
-                        <div class="col-xs-7" style="border-left:1px solid #568eff;">Line 1 Item Description</div>
-                        <div class="col-xs-1" style="border-left:1px solid #568eff;">100.00</div>
-                        <div class="col-xs-1" style="border-left:1px solid #568eff;">1</div>
-                        <div class="col-xs-1" style="border-left:1px solid #568eff;">100.00</div>
-                        <div class="col-xs-1" style="border-left:1px solid #568eff;border-right:1px solid #568eff;">
-                            100.00
-                        </div>
-                    </div>
-
-                    <!-- SIXTH ROW -->
-                    <div class="row">
-                        <div class="col-xs-10" style="text-align:right;border: 1px solid #568eff;">
-                            <strong>Total:</strong>
-                        </div>
-                        <div class="col-xs-2" style="text-align:right;border: 1px solid #568eff;border-left:0px;">
-                            <strong>100.00</strong>
-                        </div>
-                    </div>
                 </div>
-            </t>
-            </t>
+            </xpath>
         </template>
 
         <report
