@@ -155,6 +155,9 @@ class res_partner(osv.Model):
                 validation.update({"property_account_position": vals["property_account_position"]})
             vals.update(validation)
 
+        name_is_numeric = unicode(vals["name"], 'utf-8').isnumeric()
+        if name_is_numeric:
+            raise exceptions.ValidationError(u"El número de cédula o rnc no es valido!")
         return super(res_partner, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
