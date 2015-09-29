@@ -406,6 +406,48 @@ function marcos_pos_screens(instance, module) {
                 this.details_visible = false;
                 this.toggle_save_button();
             }
+        },
+        // what happens when we save the changes on the client edit form -> we fetch the fields, sanitize them,
+        // send them to the backend for update, and call saved_client_details() when the server tells us the
+        // save was successfull.
+        save_client_details: function(partner) {
+            var self = this;
+
+            var fields = {}
+            this.$('.client-details-contents .detail').each(function(idx,el){
+                fields[el.name] = el.value;
+            });
+
+            if (!fields.name) {
+                this.pos_widget.screen_selector.show_popup('error',{
+                    message: _t('A Customer Name Is Required'),
+                });
+                return;
+            }
+
+            if (this.uploaded_picture) {
+                fields.image = this.uploaded_picture;
+            }
+
+            fields.id           = partner.id || false;
+            fields.country_id   = fields.country_id || false;
+            fields.ean13        = fields.ean13 ? this.pos.barcode_reader.sanitize_ean(fields.ean13) : false;
+
+            new instance.web.Model('res.partner').call('create_from_ui',[fields]).then(function(partner_id){
+                self.saved_client_details(partner_id);
+            },function(err,event){
+                event.preventDefault();
+                err_type = err.data.name || false;
+                if (err_type === "openerp.exceptions.ValidationError") {
+                    err_msg = "El número de cédula o rnc no es valido!"
+                } else {
+                    err_msg = _t('Your Internet connection is probably down.')
+                }
+                self.pos_widget.screen_selector.show_popup('error',{
+                    'message':_t('Error: Could not Save Changes'),
+                    'comment': err_msg,
+                });
+            });
         }
     });
 
