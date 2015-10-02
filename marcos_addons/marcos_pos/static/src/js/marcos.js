@@ -1,5 +1,34 @@
 function marcos_pos_custom(instance, module) {
 
+    module.MarcosTextAreaPopupWidget = instance.point_of_sale.PopUpWidget.extend({
+        template: 'TextAreaPopupWidget',
+        show: function (options) {
+            var self = this;
+            this._super();
+            this.title = options.title || "";
+            this.value = options.value || "";
+            this.class = options.class || "";
+            this.renderElement();
+
+            self.$el.find("textarea").focus();
+
+            this.$('.button.cancel').click(function () {
+                self.pos_widget.screen_selector.close_popup();
+                if (options.cancel) {
+                    options.cancel.call(self);
+                }
+            });
+
+            this.$('.button.confirm').click(function () {
+                self.pos_widget.screen_selector.close_popup();
+                if (options.confirm) {
+                    var note = self.$el.find("textarea").val();
+                    options.confirm.call(note);
+                }
+            });
+        }
+    });
+
     module.MarcosInputPopupWidget = instance.point_of_sale.PopUpWidget.extend({
         template: 'MarcosInputPopupWidget',
         show: function (options) {

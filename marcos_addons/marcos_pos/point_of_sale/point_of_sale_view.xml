@@ -116,6 +116,7 @@
                 </field>
                 <field name="iface_big_scrollbars" position="after">
                     <field name="pos_cashier"/>
+                    <field name="iface_orderline_notes" />
                 </field>
             </field>
         </record>

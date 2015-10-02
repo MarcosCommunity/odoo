@@ -14,8 +14,10 @@
                 <script type="text/javascript" src="/marcos_pos/static/src/js/device.js"></script>
                 <script type="text/javascript" src="/marcos_pos/static/src/js/marcos.js"></script>
                 <script type="text/javascript" src="/marcos_pos/static/src/js/models.js"></script>
+                <script type="text/javascript" src="/marcos_pos/static/src/js/widget_base.js"></script>
                 <script type="text/javascript" src="/marcos_pos/static/src/js/screens.js"></script>
                 <script type="text/javascript" src="/marcos_pos/static/src/js/widgets.js"></script>
+                <script type="text/javascript" src="/marcos_pos/static/src/js/notes.js"></script>
                 <script type="text/javascript" src="/marcos_pos/static/src/js/main.js"></script>
             </xpath>
         </template>

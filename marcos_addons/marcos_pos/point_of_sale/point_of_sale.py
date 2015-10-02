@@ -51,6 +51,7 @@ class pos_config(models.Model):
     ipf_odoo = fields.Boolean("Impresora fiscal via proxy", help="Indica que utiliza impresora fiscal vie el proxy de odoo")
     ipf_host = fields.Many2one("ipf.printer.config", string="IP de la impresora fiscal", help="Indica la ip donde se encuentra la impresora fiscal")
     ipf_ip = fields.Char("Impresora fiscal", related="ipf_host.host", help="Indica la ip donde se encuentra la impresora fiscal")
+    iface_orderline_notes = fields.Boolean('Orderline Notes', help='Allow custom notes on Orderlines')
 
 class pos_session(osv.Model):
     _inherit = 'pos.session'
@@ -334,7 +335,6 @@ class pos_order(osv.Model):
 
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
-
         context = context or {}
         submitted_references = [o['data']['name'] for o in orders]
         existing_order_ids = self.search(cr, uid, [('pos_reference', 'in', submitted_references)], context=context)
@@ -391,65 +391,65 @@ class pos_order(osv.Model):
 
         return order_ids
 
-    def create_from_ui_old(self, cr, uid, orders, context={}):
-
-        context = context or {}
-        submitted_references = [o['data']['name'] for o in orders]
-        existing_order_ids = self.search(cr, uid, [('pos_reference', 'in', submitted_references)], context=context)
-        existing_orders = self.read(cr, uid, existing_order_ids, ['pos_reference'], context=context)
-        existing_references = set([o['pos_reference'] for o in existing_orders])
-        orders_to_save = [o for o in orders if o['data']['name'] not in existing_references]
-        orders_to_update = [o for o in orders if o['data']['name'] in existing_references]
-
-        order_ids = []
-
-        for tmp_order in orders_to_save:
-            if tmp_order["data"].get("type", False) == "refund":
-                return self.create_refund_from_ui(cr, uid, tmp_order, context=context)
-
-            payment_session = self.check_payment_session(cr, uid, tmp_order["data"]["pos_session_id"])
-            if payment_session:
-                tmp_order["data"]["pos_session_id"] = payment_session
-            to_invoice = tmp_order['to_invoice']
-            order = tmp_order['data']
-            order_id = self._process_order(cr, uid, order, context=context)
-            order_ids.append(order_id)
-            if to_invoice not in ["print_quotation", "send_quotation"]:
-                try:
-                    self.signal_workflow(cr, uid, [order_id], 'paid')
-                except Exception as e:
-                    _logger.error('Could not fully process the POS Order: %s', tools.ustr(e))
-
-            if to_invoice == True:
-                self.action_invoice(cr, uid, [order_id], context)
-            if to_invoice in ["print_quotation", "send_quotation"]:
-                context.update(dict(action=to_invoice))
-                return self.action_quotation(cr, uid, [order_id], context)
-
-        for tmp_order in orders_to_update:
-            payment_session = self.check_payment_session(cr, uid, tmp_order["data"]["pos_session_id"])
-            if payment_session:
-                tmp_order["data"]["pos_session_id"] = payment_session
-            order_id = self.search(cr, uid, [('pos_reference', '=', "Pedido "+tmp_order["id"])])
-            context.update(dict(to_update=True, order_id=order_id))
-            to_invoice = tmp_order['to_invoice']
-            order = tmp_order['data']
-            order_id = self._process_order(cr, uid, order, context=context)
-            order_ids.append(order_id)
-
-            if to_invoice == True:
-                self.action_invoice(cr, uid, [order_id], context)
-            elif to_invoice not in ["print_quotation", "send_quotation"]:
-                try:
-                    self.signal_workflow(cr, uid, [order_id], 'paid')
-                except Exception as e:
-                    _logger.error('Could not fully process the POS Order: %s', tools.ustr(e))
-
-            elif to_invoice in ["print_quotation", "send_quotation"]:
-                context.update(dict(action=to_invoice))
-                return self.action_quotation(cr, uid, [order_id], context)
-
-        return order_ids
+    # def create_from_ui_old(self, cr, uid, orders, context={}):
+    #
+    #     context = context or {}
+    #     submitted_references = [o['data']['name'] for o in orders]
+    #     existing_order_ids = self.search(cr, uid, [('pos_reference', 'in', submitted_references)], context=context)
+    #     existing_orders = self.read(cr, uid, existing_order_ids, ['pos_reference'], context=context)
+    #     existing_references = set([o['pos_reference'] for o in existing_orders])
+    #     orders_to_save = [o for o in orders if o['data']['name'] not in existing_references]
+    #     orders_to_update = [o for o in orders if o['data']['name'] in existing_references]
+    #
+    #     order_ids = []
+    #
+    #     for tmp_order in orders_to_save:
+    #         if tmp_order["data"].get("type", False) == "refund":
+    #             return self.create_refund_from_ui(cr, uid, tmp_order, context=context)
+    #
+    #         payment_session = self.check_payment_session(cr, uid, tmp_order["data"]["pos_session_id"])
+    #         if payment_session:
+    #             tmp_order["data"]["pos_session_id"] = payment_session
+    #         to_invoice = tmp_order['to_invoice']
+    #         order = tmp_order['data']
+    #         order_id = self._process_order(cr, uid, order, context=context)
+    #         order_ids.append(order_id)
+    #         if to_invoice not in ["print_quotation", "send_quotation"]:
+    #             try:
+    #                 self.signal_workflow(cr, uid, [order_id], 'paid')
+    #             except Exception as e:
+    #                 _logger.error('Could not fully process the POS Order: %s', tools.ustr(e))
+    #
+    #         if to_invoice == True:
+    #             self.action_invoice(cr, uid, [order_id], context)
+    #         if to_invoice in ["print_quotation", "send_quotation"]:
+    #             context.update(dict(action=to_invoice))
+    #             return self.action_quotation(cr, uid, [order_id], context)
+    #
+    #     for tmp_order in orders_to_update:
+    #         payment_session = self.check_payment_session(cr, uid, tmp_order["data"]["pos_session_id"])
+    #         if payment_session:
+    #             tmp_order["data"]["pos_session_id"] = payment_session
+    #         order_id = self.search(cr, uid, [('pos_reference', '=', "Pedido "+tmp_order["id"])])
+    #         context.update(dict(to_update=True, order_id=order_id))
+    #         to_invoice = tmp_order['to_invoice']
+    #         order = tmp_order['data']
+    #         order_id = self._process_order(cr, uid, order, context=context)
+    #         order_ids.append(order_id)
+    #
+    #         if to_invoice == True:
+    #             self.action_invoice(cr, uid, [order_id], context)
+    #         elif to_invoice not in ["print_quotation", "send_quotation"]:
+    #             try:
+    #                 self.signal_workflow(cr, uid, [order_id], 'paid')
+    #             except Exception as e:
+    #                 _logger.error('Could not fully process the POS Order: %s', tools.ustr(e))
+    #
+    #         elif to_invoice in ["print_quotation", "send_quotation"]:
+    #             context.update(dict(action=to_invoice))
+    #             return self.action_quotation(cr, uid, [order_id], context)
+    #
+    #     return order_ids
 
     def check_payment_session(self, cr, uid, pos_session_id, context=None):
         pos_session = self.pool.get("pos.session").browse(cr, uid, pos_session_id)

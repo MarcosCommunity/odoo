@@ -12,16 +12,20 @@ function marcos_pos_widgets(instance, module) {
             this._super(parent);
             //this.manager = false;
             //this.user_before_manager = false;
+            this.marcos_textarea_popup_widget = new module.MarcosTextAreaPopupWidget(this, {});
             this.marcos_input_popup_widget = new module.MarcosInputPopupWidget(this, {});
             this.marcos_product_available_popup_widget = new module.MarcosProductAvailablePopupWidget(this, {});
+            this.marcos_textarea_popup_widget.appendTo($(this.$el));
             this.marcos_input_popup_widget.appendTo($(this.$el));
             this.marcos_product_available_popup_widget.appendTo($(this.$el));
             this.screen_selector.popup_set['marcos_input_popup_widget'] = this.marcos_input_popup_widget;
             this.screen_selector.popup_set['marcos_product_available_popup_widget'] = this.marcos_product_available_popup_widget;
+            this.screen_selector.popup_set['marcos_textarea_popup_widget'] = this.marcos_textarea_popup_widget;
             // Hide the popup because all pop up are displayed at the
             // beginning by default
             this.marcos_input_popup_widget.hide();
             this.marcos_product_available_popup_widget.hide();
+            this.marcos_textarea_popup_widget.hide();
 
 
             this.quotation_button = new module.MarcosHeaderButtonWidget(this, {

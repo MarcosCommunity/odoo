@@ -16,7 +16,11 @@ function marcos_pos_models(instance, module) {
     module.PosModel = module.PosModel.extend({
         initialize: function (session, attributes) {
             this._super('initialize', session, attributes);
-            this.pricelist_engine = new module.PricelistEngine({'pos': this, 'db': this.db, 'pos_widget': this.pos_widget});
+            this.pricelist_engine = new module.PricelistEngine({
+                'pos': this,
+                'db': this.db,
+                'pos_widget': this.pos_widget
+            });
             this.type = attributes.type;
             this.manager = false;
             this.manger_permission = false;
@@ -24,8 +28,8 @@ function marcos_pos_models(instance, module) {
             this.manger_validated = false;
             arrange_elements(this);
         },
-        add_new_order: function(type){
-            var order = new module.Order({pos:this, type: type});
+        add_new_order: function (type) {
+            var order = new module.Order({pos: this, type: type});
             this.get('orders').add(order);
             this.set('selectedOrder', order);
         },
@@ -113,14 +117,17 @@ function marcos_pos_models(instance, module) {
                 }
             ).then(function (server_ids) {
                     new instance.web.Model("pos.order").call("get_ncf_info", [currentOrder.uid], undefined)
-                    .then(function (result) {
+                        .then(function (result) {
 
                             currentOrder.set("ncf_type", result.ncf_type);
                             currentOrder.set("ncf", result.ncf);
 
                             if (self.config.ipf_printer === true) {
                                 _.each(server_ids, function (order_id) {
-                                    var context =   new instance.web.CompoundContext({active_model: "pos.order", active_id: order_id});
+                                    var context = new instance.web.CompoundContext({
+                                        active_model: "pos.order",
+                                        active_id: order_id
+                                    });
                                     new openerp.web.Model("ipf.printer.config").call("ipf_print", [], {context: context})
                                         .then(function (data) {
                                             currentOrder.destroy();    //finish order and go back to scan screen
@@ -138,39 +145,39 @@ function marcos_pos_models(instance, module) {
                                 self.pos_widget.screen_selector.set_current_screen("receipt");
                             }
 
-                    });
+                        });
 
                     _.each(orders, function (order) {
                         self.db.remove_order(order.id);
                     });
 
                     return server_ids;
-            }).fail(function (error, event){
-                if(error.code === 200 ){    // Business Logic Error, not a connection problem
-                    self.pos_widget.screen_selector.show_popup('error-traceback',{
-                        message: error.data.message,
-                        comment: error.data.debug
-                    });
-                }
-                // prevent an error popup creation by the rpc failure
-                // we want the failure to be silent as we send the orders in the background
-                event.preventDefault();
-                console.error('Failed to send orders:', orders);
-                if (self.config.ipf_printer === true) {
-                    var receipt = currentOrder.export_for_printing();
-                    self.print_on_ipf(receipt, "nofiscal");
-                    currentOrder.destroy()
-                }
-                else if (self.config.iface_print_via_proxy) {
-                    var receipt = currentOrder.export_for_printing();
-                    this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
-                        receipt: receipt, widget: self,
-                    }));
-                    this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
-                } else {
-                    self.pos_widget.screen_selector.set_current_screen("receipt");
-                }
-            });
+                }).fail(function (error, event) {
+                    if (error.code === 200) {    // Business Logic Error, not a connection problem
+                        self.pos_widget.screen_selector.show_popup('error-traceback', {
+                            message: error.data.message,
+                            comment: error.data.debug
+                        });
+                    }
+                    // prevent an error popup creation by the rpc failure
+                    // we want the failure to be silent as we send the orders in the background
+                    event.preventDefault();
+                    console.error('Failed to send orders:', orders);
+                    if (self.config.ipf_printer === true) {
+                        var receipt = currentOrder.export_for_printing();
+                        self.print_on_ipf(receipt, "nofiscal");
+                        currentOrder.destroy()
+                    }
+                    else if (self.config.iface_print_via_proxy) {
+                        var receipt = currentOrder.export_for_printing();
+                        this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
+                            receipt: receipt, widget: self,
+                        }));
+                        this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
+                    } else {
+                        self.pos_widget.screen_selector.set_current_screen("receipt");
+                    }
+                });
         },
         print_on_ipf_done: function () {
             var self = this;
@@ -228,10 +235,10 @@ function marcos_pos_models(instance, module) {
                         } else if (message.message === "The printer is not connected.") {
                             return alert("El sistenma no puede comunicarse con la impresora.")
                         }
-                    } catch(err) {
+                    } catch (err) {
                         console.log(self);
                         self.get('selectedOrder').destroy();
-                        self.pos_widget.screen_selector.show_popup('error',{
+                        self.pos_widget.screen_selector.show_popup('error', {
                             'message': 'Ocurrio un error al intentar imprimir en la impresora fiscal',
                             'comment': 'No se pudo imprimir la factura por un problema de conexion con la impresora!.'
                         });
@@ -259,7 +266,7 @@ function marcos_pos_models(instance, module) {
                 return self.pos_widget.change_user();
             }
         },
-        validate_manager: function() {
+        validate_manager: function () {
             var self = this;
             self.manger_validated = false;
             var managers = self.pos_manager;
@@ -387,10 +394,10 @@ function marcos_pos_models(instance, module) {
                 loaded: function (self, configs) {
                     self.config = configs[0];
                     self.config.use_proxy = self.config.iface_payment_terminal ||
-                    self.config.iface_electronic_scale ||
-                    self.config.iface_print_via_proxy ||
-                    self.config.iface_scan_via_proxy ||
-                    self.config.iface_cashdrawer;
+                        self.config.iface_electronic_scale ||
+                        self.config.iface_print_via_proxy ||
+                        self.config.iface_scan_via_proxy ||
+                        self.config.iface_cashdrawer;
 
                     self.barcode_reader.add_barcode_patterns({
                         'product': self.config.barcode_product,
@@ -564,29 +571,29 @@ function marcos_pos_models(instance, module) {
          * @param product
          * @param options
          */
-        set_remaining: function(value){
+        set_remaining: function (value) {
             this.set("remaining", value);
         },
-        get_remaining: function() {
+        get_remaining: function () {
             return this.has('remaining') ? this.get('remaining') : "0";
         },
-        set_credit_note_ncf: function(ncf) {
+        set_credit_note_ncf: function (ncf) {
             this.set("credit_note_ncf", ncf);
         },
-        get_credit_note_ncf: function() {
+        get_credit_note_ncf: function () {
             return this.has('credit_note_ncf') ? this.get('credit_note_ncf') : false;
         },
-        set_credit_paid: function(credit_paid){
-            this.set('credit_paid',credit_paid);
+        set_credit_paid: function (credit_paid) {
+            this.set('credit_paid', credit_paid);
         },
-        get_credit_paid: function(){
+        get_credit_paid: function () {
             return this.has('credit_paid') ? this.get('credit_paid') : 0.00;
         },
-        getChange: function() {
-            return (this.getPaidTotal()+this.get_credit_paid()) - this.getTotalTaxIncluded();
+        getChange: function () {
+            return (this.getPaidTotal() + this.get_credit_paid()) - this.getTotalTaxIncluded();
         },
-        getDueLeft: function() {
-            return this.getTotalTaxIncluded() - (this.getPaidTotal()+this.get_credit_paid());
+        getDueLeft: function () {
+            return this.getTotalTaxIncluded() - (this.getPaidTotal() + this.get_credit_paid());
         },
         addProduct: function (product, options) {
             options = options || {};
@@ -598,14 +605,14 @@ function marcos_pos_models(instance, module) {
             var type = false;
             var refund_order_id = false;
             var add_prod = true;
-            if (this.has("type") && this.has("refund_order_id")){
+            if (this.has("type") && this.has("refund_order_id")) {
                 type = this.get("type");
                 refund_order_id = this.get("refund_order_id");
             }
-            if (type === "refund"){
-                this.get('orderLines').each(_.bind(function(item) {
+            if (type === "refund") {
+                this.get('orderLines').each(_.bind(function (item) {
                     if (product.id === item.product.id && product.qty_available === item.quantity) {
-                        self.pos.pos_widget.screen_selector.show_popup('error',{
+                        self.pos.pos_widget.screen_selector.show_popup('error', {
                             message: _t('Advertencia!'),
                             comment: _t('No puede devolver mas productos.')
                         });
@@ -614,7 +621,7 @@ function marcos_pos_models(instance, module) {
                 }))
             }
 
-            if (add_prod){
+            if (add_prod) {
 
                 var attr = JSON.parse(JSON.stringify(product));
                 attr.pos = this.pos;
@@ -654,42 +661,42 @@ function marcos_pos_models(instance, module) {
             }
 
 
-
         },
-        addPaymentline: function(cashregister) {
+        addPaymentline: function (cashregister) {
 
             //if (this.get_remaining() === 0) {
             //    return
             //}
             var paymentLines = this.get('paymentLines');
-            var newPaymentline = new module.Paymentline({},{cashregister:cashregister, pos:this.pos});
-            if(cashregister.journal.type !== 'cash'){
-                newPaymentline.set_amount( Math.max(this.getDueLeft(),0) );
+            var newPaymentline = new module.Paymentline({}, {cashregister: cashregister, pos: this.pos});
+            if (cashregister.journal.type !== 'cash') {
+                newPaymentline.set_amount(Math.max(this.getDueLeft(), 0));
             }
             paymentLines.add(newPaymentline);
             this.selectPaymentline(newPaymentline);
 
 
         },
-        export_as_JSON: function() {
+        export_as_JSON: function () {
             var orderLines, paymentLines;
             var type = false;
             var refund_order_id = false;
             orderLines = [];
-            (this.get('orderLines')).each(_.bind( function(item) {
+            (this.get('orderLines')).each(_.bind(function (item) {
                 return orderLines.push([0, 0, item.export_as_JSON()]);
             }, this));
             paymentLines = [];
-            (this.get('paymentLines')).each(_.bind( function(item) {
+            (this.get('paymentLines')).each(_.bind(function (item) {
                 return paymentLines.push([0, 0, item.export_as_JSON()]);
             }, this));
 
-            if (this.has("type") && this.has("refund_order_id")){
+            if (this.has("type") && this.has("refund_order_id")) {
                 type = this.get("type");
                 refund_order_id = this.get("refund_order_id");
             }
 
-            if (self) {}
+            if (self) {
+            }
 
             return {
                 name: this.getName(),
@@ -716,6 +723,7 @@ function marcos_pos_models(instance, module) {
         initialize: function (attr, options) {
             this._super('initialize', attr, options);
             this.manuel_price = false;
+            this.note = this.note || "";
 
             if (options.product !== undefined && options.order !== null) {
                 var qty = this.compute_qty(options.order, options.product);
@@ -823,14 +831,18 @@ function marcos_pos_models(instance, module) {
         },
         can_be_merged_with: function (orderline) {
             var result = this._super('can_be_merged_with', orderline);
-            if (!result) {
-                if (!this.manuel_price) {
-                    return (this.get_product().id === orderline.get_product().id);
-                } else {
-                    return false;
+            if (orderline.get_note() !== this.get_note()) {
+                return false;
+            } else {
+                if (!result) {
+                    if (!this.manuel_price) {
+                        return (this.get_product().id === orderline.get_product().id);
+                    } else {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
         },
         merge: function (orderline) {
             this._super('merge', orderline);
@@ -840,7 +852,7 @@ function marcos_pos_models(instance, module) {
             var qty = 1;
             var orderlines = [];
             if (order !== null) {
-                if (order.get('orderLines').models !== undefined ) {
+                if (order.get('orderLines').models !== undefined) {
                     orderlines = order.get('orderLines').models;
                 }
             }
@@ -899,8 +911,7 @@ function marcos_pos_models(instance, module) {
 
                 if (load_order) {
                     return true
-                } else
-                if (discount <= max_disc) {
+                } else if (discount <= max_disc) {
                     return true
                 } else {
                     self.pos.pos_widget.screen_selector.show_popup('error', {
@@ -915,13 +926,27 @@ function marcos_pos_models(instance, module) {
             }
 
         },
-        export_as_JSON: function() {
+        set_note: function (note) {
+            this.note = note;
+            this.trigger('change', this);
+        },
+        get_note: function (note) {
+            return this.note;
+        },
+        clone: function () {
+            var self = this;
+            var orderline = self.clone.call(this);
+            orderline.note = this.note;
+            return orderline;
+        },
+        export_as_JSON: function () {
             return {
                 qty: this.get_quantity(),
                 price_unit: this.get_unit_price(),
                 discount: this.get_discount(),
                 product_id: this.get_product().id,
-                origin_id: this.get_product().origin_id
+                origin_id: this.get_product().origin_id,
+                note: this.get_note()
             };
         }
     });
@@ -930,7 +955,7 @@ function marcos_pos_models(instance, module) {
      * Pricelist Engine to compute price
      */
     module.PricelistEngine = instance.web.Class.extend({
-        init: function(options){
+        init: function (options) {
             options = options || {};
             this.pos = options.pos;
             this.db = options.db;
@@ -1102,7 +1127,7 @@ function marcos_pos_models(instance, module) {
          */
         update_products_ui: function (partner) {
             var db = this.db;
-            if(!this.pos_widget.product_screen) return;
+            if (!this.pos_widget.product_screen) return;
             var product_list_ui = this.pos_widget.product_screen.$('.product-list span.product');
             for (var i = 0, len = product_list_ui.length; i < len; i++) {
                 var product_ui = product_list_ui[i];
@@ -1240,11 +1265,11 @@ function marcos_pos_models(instance, module) {
                     loaded: function (self, price_types) {
                         // we need to add price type field to product.product model if not the case
                         var product_model = posmodel.find_model('product.product');
-                        for(var i = 0, len = price_types.length; i < len; i++) {
+                        for (var i = 0, len = price_types.length; i < len; i++) {
                             var p_type = price_types[i].field;
                             if (_.size(product_model) == 1) {
                                 var product_index = parseInt(Object.keys(product_model)[0]);
-                                if(posmodel.models[product_index].fields.indexOf(p_type) === -1) {
+                                if (posmodel.models[product_index].fields.indexOf(p_type) === -1) {
                                     posmodel.models[product_index].fields.push(p_type);
                                 }
                             }

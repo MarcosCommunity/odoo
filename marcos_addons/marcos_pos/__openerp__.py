@@ -46,7 +46,10 @@ This module add new features to the POS
         'point_of_sale_workflow.xml'
     ],
     # only loaded in demonstration mode
-    'qweb': ['static/src/xml/pos.xml'],
+    'qweb': [
+        'static/src/xml/pos.xml',
+        'static/src/xml/notes.xml'
+    ],
     'demo': [
         'demo.xml',
     ],
