@@ -7,4 +7,6 @@ openerp.marcos_pos = function (instance) {
     marcos_pos_models(instance, module);
     marcos_pos_basewidget(instance, module);
     marcos_pos_screens(instance, module);
+    marcos_pos_notes(instance, module);
+
 };
