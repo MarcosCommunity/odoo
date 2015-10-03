@@ -48,8 +48,8 @@
                            attrs="{'invisible':[('state','in',['draft', 'cancel'])]}"/>
                     <field name="invoice_id" string="Ncf" readonly="1"
                            attrs="{'invisible':[('state','in',['draft', 'cancel'])]}"/>
-                    <field name="nif" string="Ncf" readonly="1"
-                           attrs="{'invisible':[('state','in',['draft', 'cancel'])]}"/>
+                    <!--<field name="nif" string="NIF" readonly="1"-->
+                           <!--attrs="{'invisible':[('state','in',['draft', 'cancel'])]}"/>-->
 
                 </field>
 
@@ -66,6 +66,10 @@
                     <group>
                         <field name="credit_paid"/>
                     </group>
+                </field>
+
+                <field name="product_id" position="after">
+                    <field name="note"/>
                 </field>
 
             </field>
@@ -89,7 +93,7 @@
                 <field name="session_id" position="after">
                     <field name="ipf_print" invisible="1"/>
                     <field name="invoice_id"/>
-                    <field name="nif" attrs="{'invisible': [('ipf_print','=',False)]}"/>
+                    <field name="nif" string="NIF" attrs="{'invisible': [('ipf_print','=',False)]}"/>
                 </field>
 
             </field>
