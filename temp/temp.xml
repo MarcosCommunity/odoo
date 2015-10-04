@@ -280,7 +280,7 @@
   	<pto_header>
       <section>
       <para style="terp_default_2"><font face="Helvetica" color="white">[[ display_no_payments(data) == False or removeParentNode('section') ]]</font></para>
-      <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0" style="Table8">
+      <blockTable colWidths="60.0,60.0,60.0,60.0,70.0,70.0,70.0" style="Table8">
       <tr>
         <td>
           <para style="terp_default_9">
@@ -304,22 +304,22 @@
       </tr>
         <tr>
           <td>
-            <para style="terp_tblheader_Details">Fecha de la factura</para>
+            <para style="terp_tblheader_Details">Invoice Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details">Fecha de vencimiento</para>
+            <para style="terp_tblheader_Details">Due Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Número de factura</para>
+            <para style="terp_tblheader_Details_Centre">Invoice Number</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Referencia</para>
+            <para style="terp_tblheader_Details_Centre">Customer Reference</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Saldo de apertura</para>
+            <para style="terp_tblheader_Details_Right">Opening Balance</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Monto de crédito</para>
+            <para style="terp_tblheader_Details_Right">Credit Amount</para>
           </td>
           <td>
             <para style="terp_tblheader_Details_Right">Ending Balance</para>
@@ -330,7 +330,7 @@
       
       <section>
       <para style="terp_default_2"><font face="Helvetica" color="white">[[ display_no_payments(data) == True or removeParentNode('section') ]]</font></para>
-      <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0,70.0" style="Table8">
+      <blockTable colWidths="60.0,60.0,60.0,60.0,70.0,70.0,70.0,70.0" style="Table8">
       <tr>
         <td>
           <para style="terp_default_9">
@@ -354,22 +354,22 @@
       </tr>
         <tr>
           <td>
-            <para style="terp_tblheader_Details">Fecha de la factura</para>
+            <para style="terp_tblheader_Details">Invoice Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details">Fecha de vencimiento</para>
+            <para style="terp_tblheader_Details">Due Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Número de factura</para>
+            <para style="terp_tblheader_Details_Centre">Invoice Number</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Referencia</para>
+            <para style="terp_tblheader_Details_Centre">Customer Reference</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Saldo de apertura</para>
+            <para style="terp_tblheader_Details_Right">Opening Balance</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Monto de crédito</para>
+            <para style="terp_tblheader_Details_Right">Credit Amount</para>
           </td>
           <td>
             <para style="terp_tblheader_Details_Right">Ending Balance</para>
@@ -398,7 +398,7 @@
         <para style="terp_default_2">
             <font face="Helvetica" color="white">[[ display_no_payments(data) == False or removeParentNode('section') ]]</font>
         </para>    
-        <para style="terp_header_Centre">Estado de cuenta
+        <para style="terp_header_Centre">Customer Aging Statement
         </para>
     </section>
 
@@ -423,9 +423,7 @@
     <para style="terp_default_8">
       <font color="white"> </font>
     </para>
-    <para style="terp_default_8">
-      <font color="white"> </font>
-    </para>
+
     <section>
       <para style="terp_default_2">
         <font face="Helvetica" color="white">[[ display_currency(data) == False or removeParentNode('section') ]]</font>
@@ -433,19 +431,19 @@
       <blockTable colWidths="70.0,160.0,100.0,100.0,90.0" style="Table1">
         <tr>
           <td>
-            <para style="terp_tblheader_Details_Centre">Fecha</para>
+            <para style="terp_tblheader_Details_Centre">Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Intervalo de fechas</para>
+            <para style="terp_tblheader_Details_Centre">Date Range</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Cargos totales</para>
+            <para style="terp_tblheader_Details_Right">Total Charges</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Total de Créditos</para>
+            <para style="terp_tblheader_Details_Right">Total Credits</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Saldo a Fecha</para>
+            <para style="terp_tblheader_Details_Right">Balance to Date</para>
           </td>
         </tr>
       </blockTable>
@@ -467,49 +465,49 @@
             <para style="terp_default_Bold_9_Right">[[ formatLang((sum_debit_partner(p) - sum_credit_partner(p)), currency_obj=company.currency_id) ]]</para>
           </td>
         </tr>
-      </blockTable>
+      </blockTable> 
     <section>
       <para style="terp_default_2"><font face="Helvetica" color="white">[[ display_no_payments(data) == True or removeParentNode('section') ]]</font></para>
-        <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0,70.0" style="Table8">
+        <blockTable colWidths="60.0,60.0,60.0,60.0,70.0,70.0,70.0,70.0" style="Table8">
       <tr>
         <td>
           <para style="terp_default_9">
             <font color="white"> </font>
-          </para>
+          </para>                  
         </td>
       </tr>
       <tr>
         <td>
           <para style="terp_default_9">
             <font color="white"> </font>
-          </para>
+          </para>                  
         </td>
       </tr>
       <tr>
         <td>
           <para style="terp_default_9">
             <font color="white"> </font>
-          </para>
+          </para>                  
         </td>
       </tr>
         <tr>
           <td>
-            <para style="terp_tblheader_Details">Fecha de la factura</para>
+            <para style="terp_tblheader_Details">Invoice Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details">Fecha de vencimiento</para>
+            <para style="terp_tblheader_Details">Due Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Número de factura</para>
+            <para style="terp_tblheader_Details_Centre">Invoice Number</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Referencia</para>
+            <para style="terp_tblheader_Details_Centre">Customer Reference</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Saldo de apertura</para>
+            <para style="terp_tblheader_Details_Right">Opening Balance</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Monto de crédito</para>
+            <para style="terp_tblheader_Details_Right">Credit Amount</para>
           </td>
           <td>
             <para style="terp_tblheader_Details_Right">Ending Balance</para>
@@ -522,25 +520,25 @@
       </section>
     <section>
       <para style="terp_default_2"><font face="Helvetica" color="white">[[ display_no_payments(data) == False or removeParentNode('section') ]]</font></para>
-        <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0" style="Table8">
+        <blockTable colWidths="60.0,60.0,60.0,60.0,70.0,70.0,70.0" style="Table8">
         <tr>
           <td>
-            <para style="terp_tblheader_Details">Fecha de la factura</para>
+            <para style="terp_tblheader_Details">Invoice Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details">Fecha de vencimiento</para>
+            <para style="terp_tblheader_Details">Due Date</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Número de factura</para>
+            <para style="terp_tblheader_Details_Centre">Invoice Number</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Referencia</para>
+            <para style="terp_tblheader_Details_Centre">Customer Reference</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Saldo de apertura</para>
+            <para style="terp_tblheader_Details_Right">Opening Balance</para>
           </td>
           <td>
-            <para style="terp_tblheader_Details_Right">Monto de crédito</para>
+            <para style="terp_tblheader_Details_Right">Credit Amount</para>
           </td>
           <td>
             <para style="terp_tblheader_Details_Right">Ending Balance</para>
@@ -626,7 +624,7 @@
     <section>
       <para style="terp_default_2"><font face="Helvetica" color="white">[[ display_no_payments(data) == False or removeParentNode('section') ]]</font></para>
       <para style="terp_default_8">[[ repeatIn(lines(p), 'line') ]]</para>
-      <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0" style="Table14">
+      <blockTable colWidths="60.0,60.0,60.0,60.0,70.0,70.0,70.0" style="Table14">
           <tr>
             <td>
               <para style="terp_default_8">[[ formatLang(line['date'],date=True) ]]</para>
@@ -653,165 +651,7 @@
         </blockTable>
         </section>
       </section>
-    <section>
-      <para style="terp_default_2">
-        <font face="Helvetica" color="white">[[ display_currency(data) == True or removeParentNode('section') ]]</font>
-      </para>
-    <para style="terp_default_8">
-      <font color="white"> </font>
-    </para>
-    <para style="terp_default_8">
-      <font color="white"> </font>
-    </para>
-      <blockTable colWidths="70.0,160.0,100.0,100.0,90.0" style="Table1">
-        <tr>
-          <td>
-            <para style="terp_tblheader_Details_Centre">Fecha</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Centre">Intervalo de fechas</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Cargos totales</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Total de Créditos</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Saldo a Fecha</para>
-          </td>
-        </tr>
-      </blockTable>
-      <blockTable colWidths="70.0,160.0,100.0,100.0,90.0" style="Table1">
-        <tr>
-          <td>
-            <para style="terp_default_Bold_9_Right">[[ min_max_dates(p)[2] ]]</para>
-          </td>
-          <td>
-            <para style="terp_default_Bold_9_Right">[[ min_max_dates(p)[0] ]] - [[ min_max_dates(p)[1] ]]</para>
-          </td>
-          <td>
-            <para style="terp_default_Bold_9_Right">[[ formatLang((sum_debit_partner(p)), currency_obj=company.currency_id) ]]</para>
-          </td>
-          <td>
-            <para style="terp_default_Bold_9_Right">[[ formatLang((sum_credit_partner(p)), currency_obj=company.currency_id) ]]</para>
-          </td>
-          <td>
-            <para style="terp_default_Bold_9_Right">[[ formatLang((sum_debit_partner(p) - sum_credit_partner(p)), currency_obj=company.currency_id) ]]</para>
-          </td>
-        </tr>
-        <tr>
-        <td>
-          <para style="terp_default_9">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="terp_default_9">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="terp_default_9">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="terp_default_9">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="terp_default_9">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
-      </blockTable>
-      <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0,70.0" style="Table8">
-        <tr>
-          <td>
-            <para style="terp_tblheader_Details">Fecha de la factura</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details">Fecha de vencimiento</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Centre">Número de factura</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Centre">Referencia</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Saldo de apertura</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Monto de crédito</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Ending Balance</para>
-          </td>
-          <td>
-            <para style="terp_tblheader_Details_Right">Cum. Balance</para>
-          </td>
-        </tr>
-      </blockTable>
-      <section>
-        <para style="terp_default_2"><font color="white">[[ data['form']['initial_balance']==True or removeParentNode('section') ]]</font></para>
-        <blockTable rowHeights="0.55cm" colWidths="240.0,70.0,70.0,70.0,70.0" style="Table13">
-          <tr>
-            <td>
-              <para style="terp_default_8">Initial Balance</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang(get_intial_balance(p)[0][0], currency_obj=company.currency_id) ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang(get_intial_balance(p)[0][1], currency_obj=company.currency_id) ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">
-                <font color="white"> </font>
-              </para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang(get_intial_balance(p)[0][2], currency_obj=company.currency_id) ]]</para>
-            </td>
-          </tr>
-        </blockTable>
-      </section>
-      <section>
-        <para style="terp_default_8">[[ repeatIn(lines(p), 'line') ]]</para>
-        <blockTable colWidths="60.0,60.0,80.0,80.0,70.0,70.0,70.0,70.0" style="Table14">
-          <tr>
-            <td>
-              <para style="terp_default_8">[[ formatLang(line['date'],date=True) ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_8">[[ formatLang(line['date_due'],date=True) ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_8">[[ line['inv_num'] ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_8">[[ line['ref'] ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang((line['debit_cur'])) ]] [[ line['currency_code'] or '' ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang((line['credit_cur'])) ]] [[ line['currency_code'] or '' ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang((line['balance'])) or 0.00]] [[ line['currency_code'] or '' ]]</para>
-            </td>
-            <td>
-              <para style="terp_default_Right_8">[[ formatLang((line['progress'])) or 0.00]] [[ line['currency_code'] or '' ]]</para>
-            </td>
-          </tr>
-        </blockTable>
-      </section>
-      </section>
+
   <blockTable colWidths="65.0,90.0,375.00" style="Table1">
     <tr>
         <td>
@@ -834,12 +674,12 @@
       </tr>
     <tr>
         <td>
-             <para style="terp_default_Bold_9_Right"># de facturas vencidas: [[ aging_summary(p)[8] ]] </para>
+             <para style="terp_default_Bold_9_Right"># of Past Due Invoices: [[ aging_summary(p)[8] ]] </para>                 
         </td>
         <td>
              <para style="terp_default_Bold_9_Right"># of Invoices : [[ aging_summary(p)[7] ]] </para>                 
         </td>
-        <td colspan="5">*************************************** VENCIDA ***************************************</td>
+        <td colspan="5">*************************************** PAST DUE ***************************************</td>  
     </tr>
   </blockTable>
  <blockTable colWidths="65.0,90.0,75.0,75.0,75.0,75.0,75.0" style="Table1">
@@ -889,7 +729,7 @@
           </para> 
           </td>
           <td>
-            <para style="terp_tblheader_Details_Centre">Actual</para>
+            <para style="terp_tblheader_Details_Centre">Current</para>
           </td>
           <td>
             <para style="terp_tblheader_Details_Right">1 - 30</para>
