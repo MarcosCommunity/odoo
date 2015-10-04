@@ -13,11 +13,6 @@ class account_aging_customer(osv.osv):
     _name = 'partner.aging.customer'
     _auto = False
 
-    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False):
-        if 'max_days_overdue' in fields:
-            fields.remove('max_days_overdue')
-        return super(account_aging_customer, self).read_group(cr, uid, domain, fields, groupby, offset, limit=limit, context=context, orderby=orderby)
-
     def docopen(self, cr, uid, ids, context=None):
         """
         @description  Open document (invoice or payment) related to the
@@ -30,7 +25,7 @@ class account_aging_customer(osv.osv):
         models = self.pool.get('ir.model.data')
         #Get this line's invoice id
         inv_id = self.browse(cr, uid, ids[0]).invoice_id.id
-        
+
         #if this is an unapplied payment(all unapplied payments hard-coded to -999), 
         #get the referenced voucher
         if inv_id == -999:
@@ -45,7 +40,6 @@ class account_aging_customer(osv.osv):
             res_model = 'account.voucher'
             ctx = "{}"
             doc_id = voucher_id
-            
         #otherwise get the invoice
         else:
             view = models.get_object_reference(cr, uid, 'account', 'invoice_form')
@@ -76,23 +70,19 @@ class account_aging_customer(osv.osv):
         'partner_id': fields.many2one('res.partner', u'Partner', readonly=True),
         'partner_name': fields.text('Name', readonly=True),
         'avg_days_overdue': fields.integer(u'Avg Days Overdue', readonly=True),
-        'date': fields.date(u'Date', readonly=True),
-        'date_due': fields.date(u'Due Date', readonly=True),
+        'date': fields.date(u'Due Date', readonly=True),
         'total': fields.float(u'Total', readonly=True),
-        'not_due': fields.float(u'Not Due Yet', readonly=True),
-        'current': fields.float(u'Current', readonly=True),
-        'days_due_01to30': fields.float(u'1/30', readonly=True),
+        'days_due_01to30': fields.float(u'01/30', readonly=True),
         'days_due_31to60': fields.float(u'31/60', readonly=True),
         'days_due_61to90': fields.float(u'61/90', readonly=True),
         'days_due_91to120': fields.float(u'91/120', readonly=True),
         'days_due_121togr': fields.float(u'+121', readonly=True),
-        'max_days_overdue': fields.integer(u'Days Outstanding',readonly=True),
-        'invoice_ref': fields.char('Our Invoice', size=25, readonly=True),
+        'max_days_overdue': fields.integer(u'Days Overdue', readonly=True),
+        'current': fields.float(u'Total', readonly=True),
+        'invoice_ref': fields.char('Reference', size=25, readonly=True),
         'invoice_id': fields.many2one('account.invoice', 'Invoice', readonly=True),
         'comment': fields.text('Notes', readonly=True),
         'salesman': fields.many2one('res.users', u'Sales Rep', readonly=True),
-        'unapp_credits': fields.float(u'Unapplied Credits', readonly=True),
-        'unapp_cash': fields.float(u'Unapplied Cash', readonly=True),
      }
 
     _order = 'partner_name'
@@ -101,74 +91,23 @@ class account_aging_customer(osv.osv):
         """
         @author       Ursa Information Systems
         @description  Update table on load with latest aging information
-        @modified      2015-03-11
         """
 
-        query = """ 
-                select aml.id, partner_id, NULL AS partner_name, 0 AS salesman, days_due AS avg_days_overdue, NULL as date, date as date_due,                
-                
-                CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                    (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END AS TOTAL, 
-                    
-                    0 AS unapp_cash,
-                    0 AS "days_due_01to30",
-                    
-                CASE WHEN (days_due BETWEEN 31 and 60) THEN 
-                    CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END
-                ELSE 0 END AS days_due_31to60, 
-                
-                CASE WHEN (days_due BETWEEN 61 and 90) THEN 
-                    CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END
-                ELSE 0 END AS days_due_61to90,
-                
-                CASE WHEN (days_due BETWEEN 91 and 120) THEN 
-                    CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END
-                ELSE 0 END AS days_due_91to120,
-                
-                CASE WHEN (days_due >= 121) THEN                     
-                    CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END
-                ELSE 0 END AS days_due_121togr,
-                
-                CASE when days_due < 0 THEN 0 ELSE days_due END as "max_days_overdue",
-                
-                CASE WHEN (days_due < 31) THEN 
-                    CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit) END
-                ELSE 0 END AS not_due,  
-                0 AS current,                
-                     
-                name AS invoice_ref, -14156 as invoice_id, NULL AS comment, 
-                
-                CASE WHEN reconcile_partial_id is not NULL THEN debit-
-                        (select sum(l.credit) from account_move_line l where l.reconcile_partial_id = aml.reconcile_partial_id) ELSE (debit-credit)
-                END AS unapp_credits
-
-                   from account_move_line aml 
-                   
-                INNER JOIN
-                  ( SELECT aml2.id, (current_date - aml2.date) AS days_due  FROM account_move_line aml2 ) DaysDue
-                ON DaysDue.id = aml.id
-                
-                where
-                    open_ar = 't'                
-                    AND reconcile_id is NULL 
-                    AND account_id in (select id from account_account where type = 'receivable')
-                    UNION       
-                select id, partner_id, partner_name,salesman, avg_days_overdue, oldest_invoice_date as date, date_due, total, unapp_cash, days_due_01to30, days_due_31to60, days_due_61to90, days_due_91to120, days_due_121togr, max_days_overdue, not_due, current, invoice_ref, invoice_id, comment, unapp_credits from account_voucher_customer_unapplied UNION 
-                
-                SELECT id, partner_id, partner_name,salesman, avg_days_overdue, date, date_due, total, unapp_cash,
-                       days_due_01to30, days_due_31to60, days_due_61to90, days_due_91to120, days_due_121togr, max_days_overdue, not_due, current, invoice_ref, invoice_id, comment, unapp_credits from (
-                SELECT l.id as id, l.partner_id as partner_id, res_partner.name as "partner_name", ai.user_id as salesman, 
-                    days_due as "avg_days_overdue", l.date as "date",
-                    CASE WHEN ai.id is not null THEN ai.date_due ElSE l.date END as "date_due",
-                    CASE WHEN ai.type = 'out_refund' AND ai.id is not null THEN -1*ai.residual ELSE ai.residual
-                         END as "total",
-                    0 AS "unapp_cash",
-                    0 AS "days_due_01to30",
+        query = """
+                select id, partner_id, partner_name,salesman, avg_days_overdue, oldest_invoice_date as date, total, days_due_01to30,
+                       days_due_31to60, days_due_61to90, days_due_91to120, days_due_121togr, max_days_overdue, current, invoice_ref, invoice_id, comment 
+                       from account_voucher_customer_unapplied UNION
+                SELECT * from (
+                SELECT l.id as id,l.partner_id as partner_id, res_partner.name as "partner_name",
+                    res_partner.user_id as salesman, days_due as "avg_days_overdue",
+		    CASE WHEN ai.id is not null THEN ai.date_due ElSE l.date_maturity END as "date",
+                    CASE WHEN ai.id is not null THEN 
+                             CASE WHEN ai.type = 'out_refund' THEN -1*ai.residual ELSE ai.residual END 
+                         WHEN ai.id is null THEN l.debit-l.credit ELSE 0 END as "total",
+                    CASE WHEN (days_due BETWEEN 01 AND  30) and ai.id is not null THEN 
+                             CASE WHEN ai.type = 'out_refund' then -1*ai.residual ELSE ai.residual END 
+                         WHEN (days_due BETWEEN 01 and 30) and ai.id is null THEN l.debit - l.credit 
+                         ELSE 0 END  AS "days_due_01to30",
                     CASE WHEN (days_due BETWEEN 31 AND  60) and ai.id is not null THEN
                              CASE WHEN ai.type = 'out_refund' THEN -1*ai.residual ELSE ai.residual END 
                          WHEN (days_due BETWEEN 31 and 60) and ai.id is null THEN l.debit - l.credit 
@@ -186,28 +125,23 @@ class account_aging_customer(osv.osv):
                          WHEN days_due >=121 and ai.id is null THEN l.debit-l.credit 
                          ELSE 0 END AS "days_due_121togr",
                     CASE when days_due < 0 THEN 0 ELSE days_due END as "max_days_overdue",
-                    
-                    CASE WHEN (days_due < 31) and ai.id is not null THEN 
-                             CASE WHEN ai.type = 'out_refund' then -1*ai.residual ELSE ai.residual END 
-                         WHEN (days_due < 1) and ai.id is null THEN l.debit - l.credit 
-                         ELSE 0 END  AS "not_due",
-                    0 AS current,                              
-   
-                    CASE WHEN ai.id is not null THEN ai.number ELSE l.ref END as "invoice_ref",
-                    ai.id as "invoice_id", ai.comment,
-                    CASE WHEN ai.type = 'out_refund' THEN -1*ai.residual END AS "unapp_credits"
+                    CASE when days_due <= 0 and ai.id is not null THEN 
+                             CASE WHEN ai.type = 'out_refund' THEN -1*ai.residual ELSE ai.residual END 
+                         WHEN days_due <=0 and ai.id is null then l.debit-l.credit 
+                         ELSE 0 END as "current",
+                    l.ref as "invoice_ref",
+                    ai.id as "invoice_id", ai.comment
 
                     FROM account_move_line as l
-                INNER JOIN         
-                  (     
-                   SELECT lt.id, 
-                   CASE WHEN inv.date_due is null then 0
-                   WHEN inv.id is not null THEN current_date - inv.date_due 
-                   ELSE current_date - lt.date END AS days_due              
-                   FROM account_move_line lt LEFT JOIN account_invoice inv on lt.move_id = inv.move_id   
-                ) DaysDue       
-                ON DaysDue.id = l.id  
-                               
+                INNER JOIN
+                (
+                   SELECT lt.id,
+                   CASE WHEN inv.id is not null THEN EXTRACT(DAY FROM (now() - inv.date_due))
+                   ELSE EXTRACT(DAY FROM (now() - lt.date_maturity)) END AS days_due
+                   FROM account_move_line lt LEFT JOIN account_invoice inv on lt.move_id = inv.move_id 
+                ) DaysDue
+                ON DaysDue.id = l.id
+
                 INNER JOIN account_account
                    ON account_account.id = l.account_id
                 INNER JOIN res_company
@@ -219,10 +153,11 @@ class account_aging_customer(osv.osv):
                 INNER JOIN res_partner
                    ON res_partner.id = l.partner_id
                 WHERE account_account.active
-                  AND (account_account.type IN ('receivable'))     
-                  AND account_move.state = 'posted'
-                  AND l.reconcile_id IS NULL
                   AND ai.state <> 'paid'
+                  AND (account_account.type IN ('receivable'))
+                  AND (l.reconcile_id IS NULL)
+                  AND account_move.state = 'posted'
+                  AND DaysDue.days_due is not null
                 ) sq
               """
 
