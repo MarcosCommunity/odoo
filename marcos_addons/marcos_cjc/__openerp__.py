@@ -34,8 +34,11 @@
         "account_voucher",
         "point_of_sale"
         ],
-    "data": ["views/cjc_view.xml",
-             "wizard/cjc_wizard_view.xml"],
+    "data": [
+            "views/cjc_view.xml",
+             "wizard/cjc_wizard_view.xml",
+             "security/ir.model.access.csv"
+    ],
     "demo_xml": [],
     "update_xml": [],
     "active": False,
