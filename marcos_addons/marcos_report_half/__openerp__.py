@@ -39,12 +39,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'report', 'account', 'account_voucher', 'invoice_discount', 'sale_discount'],
+    'depends': ['base', 'sale', 'report', 'account','report_extended'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'data/report_paperformat.xml',
+        'view.xml',
         'report/invoice.xml'
     ],
     # only loaded in demonstration mode
