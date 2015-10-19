@@ -10,7 +10,7 @@
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
 #
-#    This program is distributed in the hope thxat it will be useful,
+#    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU Affero General Public License for more details.
@@ -32,8 +32,7 @@ def db_filter(dbs, httprequest=None):
         httprequest.environ.get('HTTP_X_ODOO_DBFILTER') or \
         httprequest.environ.get('HTTP_X_OPENERP_DBFILTER')
     if db_filter_hdr:
-        return [db_filter_hdr]
+        dbs = [db for db in dbs if re.match(db_filter_hdr, db)]
     return dbs
-
 
 http.db_filter = db_filter

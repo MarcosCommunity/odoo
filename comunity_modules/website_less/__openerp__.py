@@ -1,10 +1,10 @@
 {
-    'name': 'Less Themes Layer',
+    'name': 'Theme Support Engine',
     'category': 'Website',
-    'summary': 'Compatibility layer for Less Themes',
-    'version': '1.0',
+    'summary': 'Support layer for Themes in 8.0',
+    'version': '1.1',
     'description': """
-Compatibility layer for processing Less files in 8.0.
+Support layer for themes in 8.0.
 
 This module requires `lessc` and its `clean-css` plugin to be installed on your system. Please refer to the `Less CSS via nodejs` section of https://www.odoo.com/documentation/8.0/setup/install.html#setup-install-source for installation instructions.
         """,

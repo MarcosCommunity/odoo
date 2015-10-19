@@ -20,8 +20,9 @@
 ##############################################################################
 {
     "name": "dbfilter_from_header",
-    "version": "1.0",
-    "author": "Therp BV",
+    "version": "8.0.1.0.0",
+    "author": "Therp BV,Odoo Community Association (OCA)",
+    "license": "AGPL-3",
     "complexity": "normal",
     "description": """
     This addon lets you pass a dbfilter as a HTTP header.
@@ -44,7 +45,7 @@
     ],
     "css": [
     ],
-    "auto_install": True,
+    "auto_install": False,
     "installable": True,
     "external_dependencies": {
         'python': [],

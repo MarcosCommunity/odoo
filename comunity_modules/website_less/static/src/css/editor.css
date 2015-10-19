@@ -5,7 +5,7 @@
 }
 
 .navbar.navbar-inverse .cke_inner {
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
 }
 
 .navbar.navbar-inverse .cke_toolbar {
@@ -22,7 +22,7 @@
 }
 
 .navbar.navbar-inverse .cke_top {
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
   border: none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -579,7 +579,7 @@ ul.oe_menu_editor .disclose {
   overflow: visible;
   overflow-y: auto;
   z-index: 1020;
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
   display: block;
 }
 #theme_customize_modal .modal-dialog {
