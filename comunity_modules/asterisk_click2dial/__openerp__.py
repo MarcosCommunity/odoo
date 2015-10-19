@@ -22,7 +22,7 @@
 
 {
     'name': 'Asterisk Click2dial',
-    'version': '0.4',
+    'version': '8.0.0.4.0',
     'category': 'Phone',
     'license': 'AGPL-3',
     'summary': 'Asterisk-OpenERP connector',
@@ -96,7 +96,7 @@ http://www.akretion.com/products-and-services/openerp-asterisk-voip-connector
     'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['base_phone'],
-    'external_dependencies': {'python': ['phonenumbers', 'Asterisk']},
+    'external_dependencies': {'python': ['Asterisk']},
     'data': [
         'asterisk_server_view.xml',
         'res_users_view.xml',

@@ -22,12 +22,14 @@
     'name': "Marcos NCF",
 
     'summary': """
-        Administracion de comprobantes fiscales
+        Administracion y generacion de comprobantes fiscales.
         """,
 
     'description': """
-        Este modulo agiliza y configura el proceso de asignacion y
-        y asignacion de comprobantes fiscales por sucursales.
+
+        Este modulo permite agilizar, configura y administrar los comprobantes fiscales (NCF) en los
+        proceso de asignacion y configuracion por sucursales ademas de generar los reportes necesarios
+        para la DGII 607 y 607.
     """,
 
     'author': "Marcos Organizador de Negocios SRL",

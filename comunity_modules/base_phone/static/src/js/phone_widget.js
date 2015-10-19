@@ -38,6 +38,7 @@ openerp.base_phone = function (instance) {
                 if (href_text && !this.options.dial_button_invisible) {
                   click2dial_text = _t('Dial');
                 }
+                this.$el.find('#click2dial').off('click');
                 this.$el.find('#click2dial')
                     .text(click2dial_text)
                     .on('click', function(ev) {
@@ -57,11 +58,11 @@ openerp.base_phone = function (instance) {
                                     _t('Click2dial successfull'),
                                     _t('Number dialed:') + ' ' + r.dialed_number);
                                 if (r.action_model) {
-                                    var context = {};
-                                    if (self.view.dataset.model == 'res.partner') {
-                                        context = {
-                                            'partner_id': self.view.datarecord.id};
-                                        }
+                                    var context = {
+                                        'click2dial_model': self.view.dataset.model,
+                                        'click2dial_id': self.view.datarecord.id,
+                                        'phone_number': phone_num,
+                                        };
                                     var action = {
                                         name: r.action_name,
                                         type: 'ir.actions.act_window',
