@@ -283,7 +283,7 @@
                             <spam t-field="o.partner_id.ref"></spam>
                         </p>
 
-                        <h4>
+                        <h4 class="text-right">
                             <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">FACTURA</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'draft'">FACTURA BORRADOR</span>
@@ -291,6 +291,7 @@
                             <span t-if="o.type == 'out_refund'">NOTA DE CREDITO</span>
                             <span t-if="o.type == 'in_refund'">NOTA DE CREDITO PROVEEDOR</span>
                             <span t-if="o.type == 'in_invoice'">FACTURA PROVEEDOR</span>
+                            <span t-field="o.number"/>
                         </h4>
                     </div>
                     <div id="id_1_2">
@@ -338,14 +339,14 @@
                             </tr>
                             <tr>
                                 <td class="tr3 td0">
-                                    <p class="p9 ft3">Numero:</p>
+                                    <p class="p9 ft3">Origen:</p>
                                 </td>
                                 <td class="tr3 td1">
                                     <p class="p7 ft7">&amp;nbsp;</p>
                                 </td>
                                 <td class="tr3 td2">
                                     <p class="p10 ft3">
-                                        <spam t-field="o.number"/>
+                                        <spam t-field="o.origin"/>
                                     </p>
                                 </td>
                             </tr>
