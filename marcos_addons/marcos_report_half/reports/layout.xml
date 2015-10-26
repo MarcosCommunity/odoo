@@ -2,6 +2,7 @@
 <openerp>
     <data>
 
+
         <template id="sale_order_css">
             <style type="text/css">body{margin-top: 0px; margin-left: 0px;}#page_1{position: relative;
                 overflow: hidden; margin: 13px 0px 23px 0px; padding: 0px; border: none; width:
@@ -86,21 +87,7 @@
             </style>
         </template>
 
-        <template id="half_external_layout">
-            <!-- Multicompany -->
-            <t t-if="o and 'company_id' in o">
-                <t t-set="company" t-value="o.company_id"></t>
-            </t>
-            <t t-if="not o or not 'company_id' in o">
-                <t t-set="company" t-value="res_company"></t>
-            </t>
-
-            <t t-call="marcos_report_half.half_external_layout_header"/>
-            <t t-raw="0"/>
-            <!--<t t-call="marcos_report_half.half_external_layout_footer"/>-->
-        </template>
-
-        <template id="half_external_layout_header">
+        <template id="report_header_sale_custom">
             <div id="page_1" class="header">
                 <t t-call="marcos_report_half.sale_order_css"/>
                 <div id="id_1">
@@ -130,10 +117,11 @@
                             <spam t-field="o.partner_id"></spam>
                         </p>
 
-                        <p class="p4 ft1">Direccion:&amp;nbsp;<spam t-field="o.partner_id.street"></spam>&amp;nbsp;<spam
-                                t-field="o.partner_id.street2"></spam>&amp;nbsp;<spam
-                                t-field="o.partner_id.city"></spam>&amp;nbsp;<spam
-                                t-field="o.partner_id.state_id"></spam>&amp;nbsp;
+                        <p class="p4 ft1">Direccion:&amp;nbsp;<spam t-field="o.partner_id.street"></spam>&amp;nbsp;
+                            <spam
+                                    t-field="o.partner_id.street2"></spam>&amp;nbsp;<spam
+                                    t-field="o.partner_id.city"></spam>&amp;nbsp;<spam
+                                    t-field="o.partner_id.state_id"></spam>&amp;nbsp;
                             <spam t-field="o.partner_id.country_id"></spam>
                         </p>
 
@@ -214,7 +202,7 @@
                                 </td>
                                 <td class="tr2 td2">
                                     <p class="p10 ft1">
-                                        <spam t-field="o.date_order"/>
+                                        <spam t-field="o.date_order" t-if="o.date_order"/>
                                     </p>
                                 </td>
                             </tr>
@@ -245,234 +233,223 @@
                     </div>
                 </div>
             </div>
+
         </template>
 
-        <template id="half_external_layout_footer">
-            <div class="footer">
+        <template id="report_header_invoice_custom">
+            <div id="page_1" class="header">
                 <t t-call="marcos_report_half.sale_order_css"/>
-                <div id="page_1">
-                    <div id="id_3">
-                        <p class="p25 ft1">
-                            <spam t-field="company.rml_footer"></spam>
+                <div id="id_1">
+                    <div id="id_1_1">
+                        <p class="p0 ft0" t-field="company.partner_id"></p>
+
+                        <p class="p1 ft1"><spam t-field="company.street"></spam>&amp;nbsp;<spam
+                                t-field="company.street2"></spam>&amp;nbsp;<spam t-field="company.city"></spam>&amp;nbsp;
+                            <spam t-field="company.state_id.name"></spam>&amp;nbsp;
+                            <spam t-field="company.country_id.name"></spam>
                         </p>
+
+                        <p class="p2 ft2">
+                            <nobr>Tels.:&amp;nbsp;
+                                <spam t-field="company.phone"></spam>
+                            </nobr>
+                            *
+                            <nobr>Fax.:&amp;nbsp;
+                                <spam t-field="company.fax"></spam>
+                            </nobr>
+                            *
+                            <nobr>RNC.:&amp;nbsp;
+                                <spam t-field="company.vat"></spam>
+                            </nobr>
+                        </p>
+                        <p class="p3 ft3">Cliente:&amp;nbsp;
+                            <spam t-field="o.partner_id"></spam>
+                        </p>
+
+                        <p class="p4 ft1">Direccion:&amp;nbsp;<spam t-field="o.partner_id.street"></spam>&amp;nbsp;
+                            <spam
+                                    t-field="o.partner_id.street2"></spam>&amp;nbsp;<spam
+                                    t-field="o.partner_id.city"></spam>&amp;nbsp;<spam
+                                    t-field="o.partner_id.state_id"></spam>&amp;nbsp;
+                            <spam t-field="o.partner_id.country_id"></spam>
+                        </p>
+
+                        <p class="p2 ft1">Tels:&amp;nbsp;<spam t-field="o.partner_id.phone"></spam>&amp;nbsp; / Cel:
+                            <spam t-field="o.partner_id.mobile"></spam>&amp;nbsp; / Fax:
+                            <spam t-field="o.partner_id.fax"></spam>
+                        </p>
+
+                        <p class="p5 ft5">RNC:&amp;nbsp;
+                            <spam t-field="o.partner_id.ref"></spam>
+                        </p>
+
+                        <h4>
+                            <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">FACTURA</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'draft'">FACTURA BORRADOR</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">FACTURA PAGADA</span>
+                            <span t-if="o.type == 'out_refund'">NOTA DE CREDITO</span>
+                            <span t-if="o.type == 'in_refund'">NOTA DE CREDITO PROVEEDOR</span>
+                            <span t-if="o.type == 'in_invoice'">FACTURA PROVEEDOR</span>
+                        </h4>
+                    </div>
+                    <div id="id_1_2">
+                        <table cellpadding="0" cellspacing="0" class="t0">
+                            <tr>
+                                <td class="tr0 td0">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr0 td1">
+                                    <p class="p7 ft1">Paginas :</p>
+                                </td>
+                                <td class="tr0 td2">
+                                    <p class="p8 ft1">
+                                        <spam class="page"/>
+                                        de
+                                        <spam class="topage"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr1 td0">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr1 td1">
+                                    <p class="p7 ft1">Fecha :</p>
+                                </td>
+                                <td class="tr1 td2">
+                                    <p class="p8 ft1">
+                                        <spam t-field="o.create_date"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr2 td0">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr2 td1">
+                                    <!--<p class="p7 ft1">Hora:</p>-->
+                                    <p class="p7 ft1">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr2 td2">
+                                    <p class="p8 ft1">&amp;nbsp;</p>
+                                    <!--<p class="p8 ft1">8:20pm</p>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr3 td0">
+                                    <p class="p9 ft3">Numero:</p>
+                                </td>
+                                <td class="tr3 td1">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr3 td2">
+                                    <p class="p10 ft3">
+                                        <spam t-field="o.number"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr2 td0">
+                                    <p class="p9 ft1">Fecha:</p>
+                                </td>
+                                <td class="tr2 td1">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr2 td2">
+                                    <p class="p10 ft1">
+                                        <spam t-field="o.date_invoice"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr4 td0">
+                                    <p class="p9 ft1">Condicion:</p>
+                                </td>
+                                <td class="tr4 td1">
+                                    <p class="p7 ft7">&amp;nbsp;</p>
+                                </td>
+                                <td class="tr4 td2">
+                                    <p class="p10 ft1">
+                                        <spam t-field="o.payment_term"/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tr2 td0">
+                                    <p class="p7 ft1">Vendedor:</p>
+                                </td>
+                                <td colspan="2" class="tr2 td3">
+                                    <p class="p9 ft1">
+                                        <spam t-field="o.user_id"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
 
         </template>
 
-        <template id="sale.report_saleorder_document">
-            <t t-call="marcos_report_half.half_external_layout">
-                <div id="page_1" class="page">
-                    <t t-call="marcos_report_half.sale_order_css"/>
-                    <div id="id_2">
-                        <table cellpadding="0" cellspacing="0" class="t1 table table-condensed">
-                            <tr style="border:1pt solid black;">
-                                <td class="tr5">
-                                    <p class="p11 ft1">Descripción del articulo</p>
-                                </td>
-                                <td class="tr5">
-                                    <p class="p7 ft1">Cantidad</p>
-                                </td>
-                                <td class="tr5">
-                                    <p class="p7 ft1">Precio</p>
-                                </td>
-                                <!--<td class="tr5">-->
-                                    <!--<p class="p12 ft1">Total</p>-->
-                                <!--</td>-->
-                                <td class="tr5">
-                                    <p class="p13 ft1">Desc.%</p>
-                                </td>
-                                <!--<td class="tr5">-->
-                                    <!--<p class="p14 ft1">Desc</p>-->
-                                <!--</td>-->
-                                <td class="tr5">
-                                    <p class="p15 ft1">Total</p>
-                                </td>
-                            </tr>
-                            <tr t-foreach="o.order_line" t-as="l">
-                                <tr>
-                                    <td class="tr4" style="border: none !important; padding: 1 5 ">
-                                        <span t-field="l.name"/>
-                                    </td>
-                                    <td class="tr4" style="border: none !important; padding: 1 5">
-                                        <p class="p18">
-                                            <span t-field="l.product_uom_qty"/>
-                                            <span groups="product.group_uom" t-field="l.product_uom"/>
-                                        </p>
-                                    </td>
-                                    <td class="tr4" style="border: none !important; padding: 1 5">
-                                        <p class="p18 ft1">
-                                            <span t-field="l.price_unit"/>
-                                        </p>
-                                    </td>
-                                    <!--<td class="tr4" style="border: none !important; padding: 1 5">-->
-                                        <!--<p class="p17 ft1">-->
-                                            <!--<span t-field="l.total_line"/>-->
-                                        <!--</p>-->
-                                    <!--</td>-->
-                                    <td class="tr4" style="border: none !important; padding: 1 5">
-                                        <p class="p18 ft1">
-                                            <span t-field="l.discount"/>
-                                        </p>
-                                    </td>
-                                    <!--<td class="tr4" style="border: none !important; padding: 1 5">-->
-                                        <!--<p class="p19 ft1">-->
-                                            <!--<span t-field="l.disc_line"/>-->
-                                        <!--</p>-->
-                                    <!--</td>-->
-                                    <td class="tr4" style="border: none !important; padding: 1 5">
-                                        <p class="p8 ft1">
-                                            <span t-field="l.total_line"/>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </tr>
+        <template id="external_layout_footer" inherit_id="report.external_layout_footer">
+            <xpath expr="//div" position="replace">
+                <div class="footer" style="font-size: 11px; text-align:center">
 
-                        </table>
-                        <div class="last-page">
-                            <table cellpadding="0" cellspacing="0" class="t2">
-                                <tr>
-                                    <td colspan="2" rowspan="2" class="tr0 td16">
-                                        <p class="p7 ft1">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr6 td17">
-                                        <p class="p7 ft8">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr6 td18">
-                                        <p class="p7 ft8">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr6 td19">
-                                        <p class="p7 ft8">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr7 td20">
-                                        <p class="p7 ft9">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr7 td21">
-                                        <p class="p7 ft9">&amp;nbsp;</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tr8 td17">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr8 td18">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr8 td19">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td rowspan="2" class="tr9 td22">
-                                        <p class="p11 ft1">Sub total:</p>
-                                    </td>
-                                    <td rowspan="2" class="tr9 td23">
-                                        <p class="p10 ft1">
-                                            <span t-field="o.amount_untaxed"
-                                                  t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tr10 td24">
-                                        <p class="p7 ft10">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr10 td18">
-                                        <p class="p7 ft10">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr10 td17">
-                                        <p class="p7 ft10">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr10 td18">
-                                        <p class="p7 ft10">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr10 td19">
-                                        <p class="p7 ft10">&amp;nbsp;</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tr11 td24">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr11 td18">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr11 td17">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr11 td18">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr11 td19">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr11 td22">
-                                        <p class="p11 ft1">descuento:</p>
-                                    </td>
-                                    <td class="tr11 td23">
-                                        <p class="p10 ft1"><span t-field="o.disc_total" t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tr0 td24">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr12 td25">
-                                        <p class="p21 ft1">
-                                            <spam t-field="o.user_id"></spam>
-                                        </p>
-                                    </td>
-                                    <td class="tr0 td17">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr12 td25">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr0 td19">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr0 td22">
-                                        <p class="p11 ft1">Itbis:</p>
-                                    </td>
-                                    <td class="tr0 td23">
-                                        <p class="p10 ft1">
-                                            <span t-field="o.amount_tax"
-                                                  t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tr4 td24">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr4 td18">
-                                        <p class="p22 ft1">preparado por:</p>
-                                    </td>
-                                    <td class="tr4 td17">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr4 td18">
-                                        <p class="p23 ft1">revisado por:</p>
-                                    </td>
-                                    <td class="tr4 td19">
-                                        <p class="p7 ft7">&amp;nbsp;</p>
-                                    </td>
-                                    <td class="tr4 td22">
-                                        <p class="p11 ft1">total:</p>
-                                    </td>
-                                    <td class="tr4 td23">
-                                        <p class="p10 ft1">
-                                            <span t-field="o.amount_total"
-                                                  t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <p class="p24 ft1" t-field="o.note"></p>
-                        </div>
-                    </div>
+                    <table class="table table-condensed detail">
+                        <thead>
+                            <tr>
+                                <th>Preparado por</th>
+                                <th>Recibido por</th>
+                            </tr>
+                        </thead>
+                    </table>
 
+                    <div t-field="company.rml_header1"/>
+                    <t t-if="company.custom_footer">
+                        <span t-raw="company.rml_footer"/>
+                    </t>
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
                 </div>
+            </xpath>
+        </template>
+
+
+        <template id="sale_external_layout">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
             </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="marcos_report_half.report_header_sale_custom"/>
+            <t t-raw="0"/>
+            <t t-call="report.external_layout_footer"/>
+        </template>
+
+        <template id="invoice_external_layout">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="marcos_report_half.report_header_invoice_custom"/>
+            <t t-raw="0"/>
+            <t t-call="report.external_layout_footer"/>
         </template>
 
     </data>
