@@ -16,9 +16,7 @@
             <field name="margin_bottom">9</field>
             <field name="page_height">140</field>
             <field name="page_width">215</field>
-            <field name="report_ids" eval="[(4, ref('sale.report_sale_order')),
-                                            (4, ref('account.report_invoice'))
-                                            ]"/>
+            <field name="report_ids" eval="[(4, ref('sale.report_sale_order'))]"/>
         </record>
 
     </data>
