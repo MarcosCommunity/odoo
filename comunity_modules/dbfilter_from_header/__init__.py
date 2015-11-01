@@ -30,6 +30,7 @@ def db_filter(dbs, httprequest=None):
     httprequest = httprequest or http.request.httprequest
     db_filter_hdr = \
         httprequest.environ.get('HTTP_X_ODOO_DBFILTER') or \
+        httprequest.environ.get('X-OpenERP-dbfilter') or \
         httprequest.environ.get('HTTP_X_OPENERP_DBFILTER')
     if db_filter_hdr:
         dbs = [db for db in dbs if re.match(db_filter_hdr, db)]
