@@ -99,7 +99,7 @@ function marcos_pos_models(instance, module) {
             options = options || {};
 
             var self = this;
-            var timeout = typeof options.timeout === 'number' ? options.timeout : 7500 * orders.length;
+            var timeout = typeof options.timeout === 'number' ? options.timeout : 107500 * orders.length;
 
             var currentOrder = self.get('selectedOrder');
             // we try to send the order. shadow prevents a spinner if it takes too long. (unless we are sending an invoice,
@@ -110,11 +110,11 @@ function marcos_pos_models(instance, module) {
                     order.to_invoice = options.to_invoice || false;
                     return order;
                 })],
-                undefined,
-                {
-                    shadow: !options.to_invoice,
-                    timeout: timeout
-                }
+                undefined
+                //{
+                //    shadow: !options.to_invoice,
+                //    timeout: timeout
+                //}
             ).then(function (server_ids) {
                     new instance.web.Model("pos.order").call("get_ncf_info", [currentOrder.uid], undefined)
                         .then(function (result) {

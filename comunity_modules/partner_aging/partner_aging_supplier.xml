@@ -8,7 +8,7 @@
       <field name="model">partner.aging.supplier</field>
       <field name="type">search</field>
       <field name="arch" type="xml">
-	<search string="Supplier Aging">
+	<search string="Saldo por antiguedad">
 	  <filter string="Overdue Only" name="overdue" help="Overdue" domain="[('max_days_overdue','&gt;',0),('total','&gt;',0)]"/>
 	  <filter string="Credits Only" name="credits" help="Show unapplied supplier credits" domain="[('total','&lt;',0)]" />
 	  <filter string="Exclude Credits" name="no_credits" help="Remove unapplied credits" domain="[('total','&gt;',0)]" />
@@ -53,7 +53,7 @@
     <!-- Supplier Aging action -->
     <record id="action_supplier_aging" 
 	    model="ir.actions.act_window">
-      <field name="name">Supplier Aging</field>
+      <field name="name">Saldo por antiguedad</field>
       <field name="res_model">partner.aging.supplier</field>
       <field name="view_type">form</field>
       <field name="view_id" ref="view_supplier_aging_tree"/>

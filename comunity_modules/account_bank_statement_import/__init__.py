@@ -1,4 +1,1 @@
-# -*- encoding: utf-8 -*-
-from . import account_bank_statement_import
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import models

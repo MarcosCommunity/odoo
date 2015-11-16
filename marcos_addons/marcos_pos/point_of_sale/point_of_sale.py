@@ -30,6 +30,7 @@ import time
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 from datetime import datetime
+import threading
 
 
 _logger = logging.getLogger(__name__)
@@ -628,31 +629,27 @@ class pos_order(osv.Model):
             inv.update(inv_ref.onchange_partner_id(cr, uid, [], invoice_type, order.partner_id.id)['value'])
             if not inv.get('account_id', None):
                 inv['account_id'] = acc
-            inv_id = inv_ref.create(cr, uid, inv, context=context)
 
-            order.sale_journal = inv_ref.browse(cr, uid, inv_id).journal_id.id
-            self.write(cr, uid, [order.id], {'invoice_id': inv_id, 'state': state}, context=context)
-            inv_ids.append(inv_id)
+            invoice_lines = []
             for line in order.lines:
                 inv_line = {
-                    'invoice_id': inv_id,
+                    # 'invoice_id': inv_id,
                     'product_id': line.product_id.id,
                     'quantity': line.qty if line.qty > 0 else line.qty * -1,
+                    'price_unit': line.price_unit,
+                    'discount': line.discount,
+                    'origin': line.id
                 }
-                inv_name = product_obj.name_get(cr, uid, [line.product_id.id], context=context)[0][1]
+                # inv_name = product_obj.name_get(cr, uid, [line.product_id.id], context=context)[0][1]
                 inv_line.update(inv_line_ref.product_id_change(cr, uid, [],
                                                                line.product_id.id,
                                                                line.product_id.uom_id.id,
                                                                line.qty, partner_id=order.partner_id.id,
                                                                fposition_id=order.partner_id.property_account_position.id)['value'])
                 if not inv_line.get('account_analytic_id', False):
-                    inv_line['account_analytic_id'] = \
-                        self._prepare_analytic_account(cr, uid, line,
-                                                       context=context)
-                inv_line['price_unit'] = line.price_unit
-                inv_line['discount'] = line.discount
-                inv_line['origin'] = line.id
-                inv_line['name'] = inv_name
+                    inv_line['account_analytic_id'] = self._prepare_analytic_account(cr, uid, line,context=context)
+
+                # inv_line['name'] = inv_name
 
                 if not line.order_id.type == "refund":
                     inv_line['invoice_line_tax_id'] = [(6, 0, [x.id for x in line.product_id.taxes_id] )]
@@ -663,11 +660,19 @@ class pos_order(osv.Model):
                     else:
                         inv_line['invoice_line_tax_id'] = [(6, 0, [x.id for x in line.product_id.taxes_id] )]
 
-                inv_line_ref.create(cr, uid, inv_line, context=context)
+                invoice_lines.append((0,False, inv_line))
+                # inv_line_ref.create(cr, uid, inv_line, context=context)
+            inv.update({"invoice_line": invoice_lines})
+            inv_id = inv_ref.create(cr, uid, inv, context=context)
+            order.sale_journal = inv_ref.browse(cr, uid, inv_id).journal_id.id
             inv_ref.button_reset_taxes(cr, uid, [inv_id], context=context)
             self.signal_workflow(cr, uid, [order.id], 'invoice')
             inv_ref.signal_workflow(cr, uid, [inv_id], 'validate')
             inv_ref.signal_workflow(cr, uid, [inv_id], 'invoice_open')
+            self.write(cr, uid, [order.id], {'invoice_id': inv_id, 'state': state}, context=context)
+            inv_ids.append(inv_id)
+
+
         if not inv_ids: return {}
 
         mod_obj = self.pool.get('ir.model.data')
@@ -766,12 +771,10 @@ class pos_order(osv.Model):
 
     def create_picking(self, cr, uid, ids, context=None):
         res = super(pos_order, self).create_picking(cr, uid, ids, context=context)
-
         for order in self.browse(cr, uid, ids, context=context):
             order.picking_id.invoice_id = order.invoice_id.id
             if order.amount_total < 0:
                 order.picking_id.afecta = order.invoice_id
-
         return res
 
     def test_paid(self, cr, uid, ids, context=None):

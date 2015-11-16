@@ -440,7 +440,7 @@
         <para style="terp_default_2">
             <font face="Helvetica" color="white">[[ display_no_payments(data) == False or removeParentNode('section') ]]</font>
         </para>    
-        <para style="terp_header_Centre">Customer Aging Statement
+        <para style="terp_header_Centre">Saldo por antiguedad
         </para>
     </section>
 
