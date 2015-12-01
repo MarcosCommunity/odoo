@@ -395,7 +395,7 @@
 
         <template id="external_layout_footer" inherit_id="report.external_layout_footer">
             <xpath expr="//div" position="replace">
-                <div class="footer" style="font-size: 11px; text-align:center">
+                <div class="footer" style="font-size: 14px; text-align:center">
 
                     <table class="table table-condensed detail">
                         <thead>

@@ -5,17 +5,19 @@
         <template id="report_invoice_document" inherit_id="account.report_invoice_document">
             <xpath expr="//t[@t-call='report.external_layout']" position="replace">
                 <t t-call="marcos_report_half.invoice_external_layout">
-                    <div class="page" style="font-size: 11px;">
-
-                        <style>
-                        .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
-                           padding: 1px;
+                    <style>
+                        .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th,
+                        .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
+                        padding: 1px;
                         }
                         td {
-                            border: none !important;
+                        border: none !important;
                         }
-            </style>
-
+                        .page {
+                         font-size: 14px !important;"
+                        }
+                    </style>
+                    <div class="page">
 
                         <table class="table table-condensed">
                             <thead>
