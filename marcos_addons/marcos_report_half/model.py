@@ -33,5 +33,5 @@ class AccountInvoice(models.Model):
         """
         assert len(self) == 1, 'This option should only be used for a single id at a time.'
         self.sent = True
-        return self.env['report'].get_action(self, 'marcos_report_half.report_invoice_half_document')
+        return self.env['report'].get_action(self, 'marcos_report_half.half_invoice_report')
 
