@@ -53,6 +53,12 @@
         </template>
 
         <template id="marcos_report_half.half_layout">
+            <style>
+                body {
+                font-family: Courier New !important;
+                font-size: 12px !important;
+                }
+            </style>
             <t t-call="marcos_report_half.half_header"/>
             <t t-raw="0"/>
             <t t-call="marcos_report_half.half_footer"/>
