@@ -45,10 +45,9 @@
     'data': [
         # 'security/ir.model.access.csv',
         'data/report_paperformat.xml',
-        'view.xml',
-        'reports/layout.xml',
-        'reports/sale.xml',
-        'reports/invoice.xml'
+        'reports/template.xml',
+        'reports/account_invoice.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
