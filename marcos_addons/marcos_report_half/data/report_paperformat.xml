@@ -12,7 +12,7 @@
             <field name="margin_bottom">5</field>
             <field name="margin_left">2</field>
             <field name="margin_right">2</field>
-            <field name="header_line" eval="1" />
+            <field name="header_line" eval="0" />
             <field name="header_spacing">24</field>
             <field name="dpi">144</field>
             <field name="default" eval="True" />

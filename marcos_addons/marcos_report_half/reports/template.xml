@@ -5,10 +5,6 @@
             <xpath expr=".">
                 <t>
 
-                    body {
-                        font-family: "Courier New" !important;
-                    }
-
                     .xx-small {
                         font-size: xx-small;
                     }

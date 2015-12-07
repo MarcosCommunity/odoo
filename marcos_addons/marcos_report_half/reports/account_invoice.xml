@@ -23,23 +23,27 @@
                     <div class="header">
 
                         <div class="container">
-                            <div class="row">
-                                <div class="pull-left">
-                                    <b class="x-large">
-                                        <span t-field="company.name"/>
-                                    </b>
-                                </div>
-                                <div class="text-center pull-right x-small">
-                                    <ul class="list-inline">
-                                        <li>Pagina:</li>
-                                        <li>
-                                            <span class="page"/>
-                                        </li>
-                                        <li>/</li>
-                                        <li>
-                                            <span class="topage"/>
-                                        </li>
-                                    </ul>
+                            <div class="row pull-left col-sm-8 col-md-8">
+                                <div>
+                                    <div class="pull-left">
+                                        <b class="x-large">
+                                            <span t-field="company.name"/>
+                                        </b>
+                                    </div>
+                                    <div class="text-center pull-right x-small col-sm-4 col-md-4">
+                                        <div>
+                                            <ul class="list-inline">
+                                                <li>Pagina:</li>
+                                                <li>
+                                                    <span class="page"/>
+                                                </li>
+                                                <li>/</li>
+                                                <li>
+                                                    <span class="topage"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row x-small">
@@ -57,21 +61,23 @@
                                     <br/>RNC:
                                     <span t-field="company.vat"/>
                                 </div>
-                                <div class="text-center pull-right right-line line-box">
-                                    <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
-                                        <span t-field="o.journal_id.name"/>
-                                    </span>
-                                    <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
-                                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Factura en borrador
-                                    </span>
-                                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Factura cancelada
-                                    </span>
-                                    <span t-if="o.type == 'out_refund'">Nota de credito</span>
-                                    <span t-if="o.type == 'in_refund'">Nota de credito proveedor</span>
-                                    <span t-if="o.type == 'in_invoice'">Factura proveedor</span>
+                                <div class="text-center pull-right line-box x-small col-sm-4 col-md-4">
+                                    <div>
+                                        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                                            <span t-field="o.journal_id.name"/>
+                                        </span>
+                                        <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                                        <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Factura en borrador
+                                        </span>
+                                        <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Factura cancelada
+                                        </span>
+                                        <span t-if="o.type == 'out_refund'">Nota de credito</span>
+                                        <span t-if="o.type == 'in_refund'">Nota de credito proveedor</span>
+                                        <span t-if="o.type == 'in_invoice'">Factura proveedor</span>
 
-                                    <br/>
-                                    <span t-field="o.number"/>
+                                        <br/>
+                                        <span t-field="o.number"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
