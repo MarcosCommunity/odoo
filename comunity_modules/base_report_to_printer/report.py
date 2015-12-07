@@ -19,12 +19,13 @@
 #
 ##############################################################################
 
-from openerp import models, exceptions, _
+from openerp import models, exceptions, _, api
 
 
 class Report(models.Model):
     _inherit = 'report'
 
+    @api.v7
     def print_document(self, cr, uid, ids, report_name, html=None,
                        data=None, context=None):
         """ Print a document, do not return the document file """
@@ -41,7 +42,15 @@ class Report(models.Model):
             raise exceptions.Warning(
                 _('No printer configured to print this report.')
             )
-        return printer.print_document(report, document, report.report_type)
+        return printer.with_context(context).print_document(
+            report, document, report.report_type)
+
+    @api.v8
+    def print_document(self, records, report_name, html=None, data=None):
+        return self._model.print_document(
+            self._cr, self._uid,
+            records.ids, report_name,
+            html=html, data=data, context=self._context)
 
     def _can_print_report(self, cr, uid, ids, behaviour, printer, document,
                           context=None):
@@ -56,6 +65,7 @@ class Report(models.Model):
             return True
         return False
 
+    @api.v7
     def get_pdf(self, cr, uid, ids, report_name, html=None,
                 data=None, context=None):
         """ Generate a PDF and returns it.
@@ -75,3 +85,9 @@ class Report(models.Model):
         if can_print_report:
             printer.print_document(report, document, report.report_type)
         return document
+
+    @api.v8
+    def get_pdf(self, records, report_name, html=None, data=None):
+        return self._model.get_pdf(self._cr, self._uid,
+                                   records.ids, report_name,
+                                   html=html, data=data, context=self._context)

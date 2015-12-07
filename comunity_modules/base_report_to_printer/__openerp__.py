@@ -23,9 +23,10 @@
 ##############################################################################
 {
     'name': "Report to printer",
-    'version': '0.1.1',
+    'version': '8.0.0.2.0',
     'category': 'Generic Modules/Base',
-    'author': "Agile Business Group & Domsense, Pegueroles SCP, NaN,Odoo Community Association (OCA)",
+    'author': "Agile Business Group & Domsense, Pegueroles SCP, NaN,"
+              "Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": ['base',
