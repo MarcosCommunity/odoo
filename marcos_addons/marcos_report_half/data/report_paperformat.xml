@@ -14,7 +14,7 @@
             <field name="margin_right">2</field>
             <field name="header_line" eval="0" />
             <field name="header_spacing">10</field>
-            <field name="dpi">144</field>
+            <field name="dpi">90</field>
             <field name="default" eval="True" />
             <field name="report_ids" eval="[(4, ref('sale.report_sale_order'))]"/>
         </record>
