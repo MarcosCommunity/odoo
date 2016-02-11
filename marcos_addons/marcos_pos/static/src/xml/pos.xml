@@ -100,7 +100,6 @@
         </div>
     </t>
 
-
     <t t-name="MarcosProductAvailablePopupWidget">
         <div class="modal-dialog">
             <div class="popup popup-confirm">
@@ -120,7 +119,6 @@
             </div>
         </div>
     </t>
-
 
     <t t-name="PosTicket">
         <div class="pos-sale-ticket">

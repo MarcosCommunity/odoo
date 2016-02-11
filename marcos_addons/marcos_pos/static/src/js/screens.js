@@ -461,20 +461,6 @@ function marcos_pos_screens(instance, module) {
                     orderlines: order.get('orderLines').models,
                     paymentlines: order.get('paymentLines').models,
                 }));
-
-            //var self = this;
-            //var order = this.pos.get('selectedOrder');
-            //
-            //
-            //
-            //    if (order.get("client") && !self.pos.config.proxy_ip) {
-            //        $('.pos-receipt-container', this.$el).html(QWeb.render('PosTicket', {
-            //            widget: this,
-            //            order: order,
-            //            orderlines: order.get('orderLines').models,
-            //            paymentlines: order.get('paymentLines').models,
-            //        }));
-            //    }
         }
     });
 
