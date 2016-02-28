@@ -633,10 +633,24 @@ function marcos_pos_models(instance, module) {
                 if (options.quantity !== undefined) {
                     line.set_quantity(options.quantity);
                 }
-                if (options.price !== undefined) {
+
+                if (type === "refund") {
+                    console.log("=======options.refund_price=========")
+                    console.log(options.refund_price)
+                    console.log(product.refund_price)
+                    console.log("================")
+                    line.set_unit_price(product.refund_price);
+                } else if (options.price !== undefined) {
                     line.set_unit_price(options.price);
                 }
-                if (options.discount !== undefined) {
+
+                if (type === "refund") {
+                    console.log("================")
+                    console.log(options.refund_discount)
+                    console.log(product.refund_discount)
+                    console.log("================")
+                    line.set_discount(product.refund_discount);
+                } else if (options.discount !== undefined) {
                     line.set_discount(options.discount);
                 }
 

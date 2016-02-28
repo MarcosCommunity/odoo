@@ -194,7 +194,8 @@ function marcos_pos_widgets(instance, module) {
                                         } else if (action === "refund") {
                                             product.qty_available = res.qty - res.return_qty;
                                             product.origin_id = res.id;
-                                            product.price = res.price_unit;
+                                            product.refund_price = res.price_unit;
+                                            product.refund_discount = res.discount;
                                         }
 
                                         products.push(product);
