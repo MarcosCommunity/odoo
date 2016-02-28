@@ -36,9 +36,9 @@
                     <field name="ref" placeholder="RNC/Cédula"
                            attrs="{'invisible': [('is_company','=', False)], 'required': [('is_company','=', True)]}"/>
                     <div attrs="{'invisible': [('is_company','=', False)], 'required': [('is_company','=', True)]}">
-                        <!--<field name="property_account_position" placeholder="Posición fiscal"-->
-                               <!--domain="['|',('for_supplier','=',supplier),('for_supplier','!=',customer)]"-->
-                               <!--attrs="{'invisible': [('is_company','=', False)], 'required': [('is_company','=', True)]}"/>-->
+                        <field name="property_account_position" placeholder="Posición fiscal"
+                               domain="['|',('for_supplier','=',supplier),('for_supplier','!=',customer)]"
+                               attrs="{'invisible': [('is_company','=', False)], 'required': [('is_company','=', True)]}"/>
                     </div>
                 </field>
 
