@@ -116,68 +116,68 @@ function marcos_pos_models(instance, module) {
                 //    timeout: timeout
                 //}
             ).then(function (server_ids) {
-                    new instance.web.Model("pos.order").call("get_ncf_info", [currentOrder.uid], undefined)
-                        .then(function (result) {
+                new instance.web.Model("pos.order").call("get_ncf_info", [currentOrder.uid], undefined)
+                    .then(function (result) {
 
-                            currentOrder.set("ncf_type", result.ncf_type);
-                            currentOrder.set("ncf", result.ncf);
+                        currentOrder.set("ncf_type", result.ncf_type);
+                        currentOrder.set("ncf", result.ncf);
 
-                            if (self.config.ipf_printer === true) {
-                                _.each(server_ids, function (order_id) {
-                                    var context = new instance.web.CompoundContext({
-                                        active_model: "pos.order",
-                                        active_id: order_id
-                                    });
-                                    new openerp.web.Model("ipf.printer.config").call("ipf_print", [], {context: context})
-                                        .then(function (data) {
-                                            currentOrder.destroy();    //finish order and go back to scan screen
-                                            self.print_on_ipf(data, result.ncf)
-                                        });
+                        if (self.config.ipf_printer === true) {
+                            _.each(server_ids, function (order_id) {
+                                var context = new instance.web.CompoundContext({
+                                    active_model: "pos.order",
+                                    active_id: order_id
                                 });
-                            }
-                            else if (self.config.iface_print_via_proxy) {
-                                var receipt = currentOrder.export_for_printing();
-                                this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
-                                    receipt: receipt, widget: self,
-                                }));
-                                currentOrder.destroy();    //finish order and go back to scan screen
-                            } else {
-                                self.pos_widget.screen_selector.set_current_screen("receipt");
-                            }
+                                new openerp.web.Model("ipf.printer.config").call("ipf_print", [], {context: context})
+                                    .then(function (data) {
+                                        currentOrder.destroy();    //finish order and go back to scan screen
+                                        self.print_on_ipf(data, result.ncf)
+                                    });
+                            });
+                        }
+                        else if (self.config.iface_print_via_proxy) {
+                            var receipt = currentOrder.export_for_printing();
+                            this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
+                                receipt: receipt, widget: self,
+                            }));
+                            currentOrder.destroy();    //finish order and go back to scan screen
+                        } else {
+                            self.pos_widget.screen_selector.set_current_screen("receipt");
+                        }
 
-                        });
-
-                    _.each(orders, function (order) {
-                        self.db.remove_order(order.id);
                     });
 
-                    return server_ids;
-                }).fail(function (error, event) {
-                    if (error.code === 200) {    // Business Logic Error, not a connection problem
-                        self.pos_widget.screen_selector.show_popup('error-traceback', {
-                            message: error.data.message,
-                            comment: error.data.debug
-                        });
-                    }
-                    // prevent an error popup creation by the rpc failure
-                    // we want the failure to be silent as we send the orders in the background
-                    event.preventDefault();
-                    console.error('Failed to send orders:', orders);
-                    if (self.config.ipf_printer === true) {
-                        var receipt = currentOrder.export_for_printing();
-                        self.print_on_ipf(receipt, "nofiscal");
-                        currentOrder.destroy()
-                    }
-                    else if (self.config.iface_print_via_proxy) {
-                        var receipt = currentOrder.export_for_printing();
-                        this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
-                            receipt: receipt, widget: self,
-                        }));
-                        this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
-                    } else {
-                        self.pos_widget.screen_selector.set_current_screen("receipt");
-                    }
+                _.each(orders, function (order) {
+                    self.db.remove_order(order.id);
                 });
+
+                return server_ids;
+            }).fail(function (error, event) {
+                if (error.code === 200) {    // Business Logic Error, not a connection problem
+                    self.pos_widget.screen_selector.show_popup('error-traceback', {
+                        message: error.data.message,
+                        comment: error.data.debug
+                    });
+                }
+                // prevent an error popup creation by the rpc failure
+                // we want the failure to be silent as we send the orders in the background
+                event.preventDefault();
+                console.error('Failed to send orders:', orders);
+                if (self.config.ipf_printer === true) {
+                    var receipt = currentOrder.export_for_printing();
+                    self.print_on_ipf(receipt, "nofiscal");
+                    currentOrder.destroy()
+                }
+                else if (self.config.iface_print_via_proxy) {
+                    var receipt = currentOrder.export_for_printing();
+                    this.pos.proxy.print_receipt(QWeb.render('XmlReceipt', {
+                        receipt: receipt, widget: self,
+                    }));
+                    this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
+                } else {
+                    self.pos_widget.screen_selector.set_current_screen("receipt");
+                }
+            });
         },
         print_on_ipf_done: function () {
             var self = this;
@@ -213,10 +213,10 @@ function marcos_pos_models(instance, module) {
 
             this.invoice_id = data.invoice_id;
             $.ajax({
-                type: 'POST',
-                url: data.host + "/invoice",
-                data: JSON.stringify(data)
-            })
+                    type: 'POST',
+                    url: data.host + "/invoice",
+                    data: JSON.stringify(data)
+                })
                 .done(function (response) {
                     var message = JSON.parse(response);
                     self.get('selectedOrder').destroy();

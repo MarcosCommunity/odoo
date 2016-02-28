@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-11-27 12:43+0000\n"
+"PO-Revision-Date: 2016-02-20 16:44+0000\n"
 "Last-Translator: Bogdan\n"
 "Language-Team: Ukrainian (http://www.transifex.com/odoo/odoo-8/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -1283,7 +1283,7 @@ msgstr ""
 #. module: crm
 #: field:base.partner.merge.automatic.wizard,exclude_journal_item:0
 msgid "Journal Items associated to the contact"
-msgstr ""
+msgstr "Проведення асоційовані з контактом"
 
 #. module: crm
 #: field:crm.lead,date_action_last:0 field:crm.phonecall,date_action_last:0
@@ -2408,7 +2408,7 @@ msgstr ""
 #: field:crm.phonecall2phonecall,section_id:0
 #: field:crm.tracking.campaign,section_id:0
 msgid "Sales Team"
-msgstr ""
+msgstr "Відділ продажу"
 
 #. module: crm
 #: model:ir.model,name:crm.model_crm_case_section
@@ -2591,7 +2591,7 @@ msgstr "Послідовність"
 #. module: crm
 #: model:crm.case.categ,name:crm.categ_oppor3
 msgid "Services"
-msgstr ""
+msgstr "Послуги"
 
 #. module: crm
 #: model:ir.actions.server,name:crm.action_set_team_sales_department
@@ -2889,7 +2889,7 @@ msgstr "Звернення"
 #. module: crm
 #: view:crm.phonecall:crm.view_crm_case_phonecalls_filter
 msgid "To Do"
-msgstr ""
+msgstr "До опрацювання"
 
 #. module: crm
 #: code:addons/crm/crm_lead.py:397
@@ -3054,7 +3054,7 @@ msgstr ""
 #. module: crm
 #: field:crm.case.section,resource_calendar_id:0
 msgid "Working Time"
-msgstr ""
+msgstr "Робочий час"
 
 #. module: crm
 #: code:addons/crm/crm_lead.py:434

@@ -9,7 +9,11 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:08+0000\n"
+<<<<<<< HEAD
 "PO-Revision-Date: 2015-07-29 08:39+0000\n"
+=======
+"PO-Revision-Date: 2016-02-06 22:42+0000\n"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Spanish (http://www.transifex.com/odoo/odoo-8/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +25,11 @@ msgstr ""
 #. module: product
 #: field:product.template,product_variant_count:0
 msgid "# of Product Variants"
+<<<<<<< HEAD
 msgstr "Variantes de productos"
+=======
+msgstr "# De variantes de producto"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: code:addons/product/product.py:757 code:addons/product/product.py:1111
@@ -1092,7 +1100,11 @@ msgstr "¡La conversión de la UdM %s del producto a UdM por defecto %s no es po
 #: model:product.price.type,name:product.standard_price
 #: field:product.template,standard_price:0
 msgid "Cost Price"
+<<<<<<< HEAD
 msgstr "Precio de coste"
+=======
+msgstr "Precio coste"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: help:product.template,standard_price:0
@@ -1206,7 +1218,11 @@ msgstr "Unidad de medida por defecto utilizada para los pedidos de compra. Debe 
 #. module: product
 #: field:product.supplierinfo,delay:0
 msgid "Delivery Lead Time"
+<<<<<<< HEAD
 msgstr "Tiempo de entrega"
+=======
+msgstr "Tiempo inicial entrega"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: field:pricelist.partnerinfo,name:0 field:product.packaging,name:0
@@ -1378,7 +1394,11 @@ msgstr "Software de edición de imágenes completo"
 msgid ""
 "Gives the different ways to package the same product. This has no impact on "
 "the picking order and is mainly used if you use the EDI module."
+<<<<<<< HEAD
 msgstr "Indica las diferentes formas de empaquetar el mismo producto. Esto no tiene ningún impacto en la preparación de albaranes y se utiliza principalmente si utiliza el módulo EDI."
+=======
+msgstr "Indica las diferentes formas de empaquetar el mismo producto. Esto no tiene ningún impacto en la preparación de conduce y se utiliza principalmente si utiliza el módulo EDI."
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: help:product.pricelist.item,sequence:0
@@ -2668,7 +2688,11 @@ msgstr "Software"
 #. module: product
 #: model:product.public.category,name:product.Speakers
 msgid "Speakers"
+<<<<<<< HEAD
 msgstr "Altavoces"
+=======
+msgstr "Ponentes"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: help:product.pricelist.item,categ_id:0
@@ -2734,7 +2758,11 @@ msgstr "Estado"
 #. module: product
 #: selection:product.template,type:0
 msgid "Stockable Product"
+<<<<<<< HEAD
 msgstr "Almacenable"
+=======
+msgstr "Productos almacenables"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: product
 #: field:product.product,message_summary:0

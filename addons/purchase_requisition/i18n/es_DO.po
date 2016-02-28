@@ -9,7 +9,11 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:08+0000\n"
+<<<<<<< HEAD
 "PO-Revision-Date: 2015-07-17 07:57+0000\n"
+=======
+"PO-Revision-Date: 2015-12-22 18:32+0000\n"
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Spanish (http://www.transifex.com/odoo/odoo-8/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -716,7 +720,11 @@ msgstr "Tiene ya un pedido de compra %s para esta empresa. Debe cancelar este pe
 #: code:addons/purchase_requisition/purchase_requisition.py:249
 #, python-format
 msgid "You have no line selected for buying."
+<<<<<<< HEAD
 msgstr "No ha seleccionado líneas para comprar."
+=======
+msgstr "No tienes ninguna línea seleccionada para comprar."
+>>>>>>> 9f073102ef73acfaab2d9bcdd2e7706af2f0aab0
 
 #. module: purchase_requisition
 #: view:purchase.requisition:purchase_requisition.view_purchase_requisition_form
