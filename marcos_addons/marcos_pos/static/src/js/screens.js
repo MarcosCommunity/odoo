@@ -437,7 +437,9 @@ function marcos_pos_screens(instance, module) {
             fields.id = partner.id || false;
             fields.country_id = fields.country_id || false;
             fields.ean13 = fields.ean13 ? this.pos.barcode_reader.sanitize_ean(fields.ean13) : false;
-
+            console.log("================")
+            console.log(fields)
+            console.log("================")
             new instance.web.Model('res.partner').call('create_from_ui', [fields]).then(function (partner_id) {
                 self.saved_client_details(partner_id);
             }, function (err, event) {

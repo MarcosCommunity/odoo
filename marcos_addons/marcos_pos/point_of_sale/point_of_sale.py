@@ -829,3 +829,15 @@ class pos_order_line(osv.Model):
         'origin': old_fields.many2one("pos.order.line", string="Origen de la devolucion", copy=False)
     }
 
+
+class res_partner(osv.osv):
+    _inherit = 'res.partner'
+
+    def create_from_ui(self, cr, uid, partner, context=None):
+        fiscal_position = partner.get("fiscal_position", False)
+        if fiscal_position:
+            fiscal_position = self.pool.get("account.fiscal.position").search(cr, uid, [('fiscal_type','=', fiscal_position)])
+            if fiscal_position:
+                partner.update({"property_account_position": fiscal_position[0]})
+        return super(res_partner, self).create_from_ui(cr, uid, partner, context=context)
+
